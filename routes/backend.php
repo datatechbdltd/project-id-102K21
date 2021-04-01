@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\HomeContentController;
 use App\Http\Controllers\Backend\HomeContentFaqController;
+use App\Http\Controllers\Backend\StrengthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CustomPageController;
@@ -28,8 +29,12 @@ use App\Http\Controllers\Backend\TestimonialController;
         Route::get('/about', [AboutController::class, 'index'])->name('about');
         Route::post('/about/update', [AboutController::class, 'update'])->name('aboutUpdate');
 
+        Route::get('/strength-page', [StrengthController::class, 'strength'])->name('strength');
+        Route::post('/strength/update', [StrengthController::class, 'strengthUpdate'])->name('strengthUpdate');
+
         Route::resource('homeContent', HomeContentController::class);
-        Route::resource('homeContentFaq',  HomeContentFaqController::class);
+        Route::resource('homeContentFaq', HomeContentFaqController::class);
+        Route::resource('strength', StrengthController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('blog', BlogController::class);
         Route::resource('gallery', GalleryController::class);

@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TestimonialSeeder::class);
         $this->call(PartnerSeeder::class);
         $this->call(CustomPageSeeder::class);
+        $this->call(StrengthSeeder::class);
     }
 }

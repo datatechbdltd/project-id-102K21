@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class CustomPage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'status',
+        'name',
+        'slug',
+        'title',
+        'description',
+        'visitor_counter',
+        'serial'
+    ];
 }

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
 use App\Models\Strength;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
+use Yajra\DataTables\Facades\DataTables;
 
 class StrengthController extends Controller
 {
@@ -13,9 +18,20 @@ class StrengthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.strength.index');
+        if ($request->ajax()){
+            $data = Strength::all();
+            return datatables::of($data)
+                ->addColumn('action', function($data) {
+                    return '<a href="'.route('backend.strength.edit', $data).'" class="btn btn-info"><i class="fas fa-edit"></i> </a>
+                   <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.strength.destroy', $data).'"><i class="fas fa-trash"></i> </button>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }else{
+            return view('backend.website.strength.index');
+        }
     }
 
     /**
@@ -25,7 +41,7 @@ class StrengthController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.website.strength.create');
     }
 
     /**
@@ -36,7 +52,21 @@ class StrengthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'percentage' => 'required|numeric',
+        ]);
+        $strength = new Strength();
+
+        $strength->name    =   $request->name;
+        $strength->percentage    =  $request->percentage;
+
+        try {
+            $strength->save();
+            return back()->withToastSuccess('Successfully saved.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
     }
 
     /**
@@ -58,7 +88,7 @@ class StrengthController extends Controller
      */
     public function edit(Strength $strength)
     {
-        //
+        return view('backend.website.strength.edit', compact('strength'));
     }
 
     /**
@@ -70,7 +100,20 @@ class StrengthController extends Controller
      */
     public function update(Request $request, Strength $strength)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'percentage' => 'required|numeric',
+        ]);
+
+        $strength->name    =   $request->name;
+        $strength->percentage    =  $request->percentage;
+
+        try {
+            $strength->save();
+            return back()->withToastSuccess('Successfully updated.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
     }
 
     /**
@@ -81,6 +124,46 @@ class StrengthController extends Controller
      */
     public function destroy(Strength $strength)
     {
-        //
+        try {
+            $strength->delete();
+            return response()->json([
+                'type' => 'success',
+            ]);
+        }catch (\Exception$exception){
+            return response()->json([
+                'type' => 'error',
+            ]);
+        }
+    }
+
+    public function strength(){
+        return view('backend.website.strength.strength');
+    }
+
+    public function strengthUpdate(Request $request){
+        $request->validate([
+            'image' => 'required|image',
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+
+        if($request->hasFile('image')){
+            if (get_static_option('image') != null)
+                File::delete(public_path(get_static_option('strength_image'))); //Old image delete
+            $image             = $request->file('image');
+            $folder_path       = 'uploads/images/website/';
+            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
+            update_static_option('strength_image',$folder_path.$image_new_name);
+        }
+        try {
+            update_static_option('strength_title', $request->title);
+            update_static_option('strength_description', $request->description);
+
+            return back()->withToastSuccess('Successfully updated.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
     }
 }

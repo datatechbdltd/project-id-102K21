@@ -66,6 +66,13 @@
                         <li><a href="{{ route('backend.homeContentFaq.create') }}">Create Q/A</a></li>
                     </ul>
                 </li>
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Strength</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.strength') }}">Strength </a></li>
+                        <li><a href="{{ route('backend.strength.index') }}">Strength list </a></li>
+                        <li><a href="{{ route('backend.strength.create') }}">Strength create </a></li>
+                    </ul>
+                </li>
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Faq</a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('backend.faq.index') }}">Faq list </a></li>

@@ -22,7 +22,8 @@ class StrengthFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'percentage' => $this->faker->numberBetween(10,100),
         ];
     }
 }

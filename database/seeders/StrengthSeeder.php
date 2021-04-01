@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Strength;
 use Illuminate\Database\Seeder;
 
 class StrengthSeeder extends Seeder
@@ -13,6 +14,6 @@ class StrengthSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Strength::factory()->count(10)->create();
     }
 }
