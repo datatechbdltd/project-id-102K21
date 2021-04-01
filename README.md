@@ -1,4 +1,4 @@
-#Latavel Starter of DATATECH DB LTD
+#Information website using Laravel Starter of DATATECH DB LTD
 
 1. Git clone
 2. Composer install
