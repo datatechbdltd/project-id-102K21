@@ -61,5 +61,8 @@ class StaticOptionSeeder extends Seeder
         set_static_option('strength_title', null);
         set_static_option('strength_description', null);
 
+        set_static_option('service_title', null);
+        set_static_option('service_description', null);
+
     }
 }

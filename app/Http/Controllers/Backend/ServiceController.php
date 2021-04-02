@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Faq;
+use App\Models\Service;
 use App\Models\Strength;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\DataTables\Facades\DataTables;
 
-class StrengthController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,16 +21,16 @@ class StrengthController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()){
-            $data = Strength::all();
+            $data = Service::all();
             return datatables::of($data)
                 ->addColumn('action', function($data) {
-                    return '<a href="'.route('backend.strength.edit', $data).'" class="btn btn-info"><i class="fas fa-edit"></i> </a>
-                   <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.strength.destroy', $data).'"><i class="fas fa-trash"></i> </button>';
+                    return '<a href="'.route('backend.service.edit', $data).'" class="btn btn-info"><i class="fas fa-edit"></i> </a>
+                   <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.service.destroy', $data).'"><i class="fas fa-trash"></i> </button>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }else{
-            return view('backend.website.strength.index');
+            return view('backend.website.service.index');
         }
     }
 
@@ -41,7 +41,7 @@ class StrengthController extends Controller
      */
     public function create()
     {
-        return view('backend.website.strength.create');
+        return view('backend.website.service.index');
     }
 
     /**
@@ -53,16 +53,17 @@ class StrengthController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'percentage' => 'required|numeric',
+        'name' => 'required|string',
+        'description' => 'required',
         ]);
-        $strength = new Strength();
 
-        $strength->name    =   $request->name;
-        $strength->percentage    =  $request->percentage;
+        $service = new Service();
+
+        $service->name    =   $request->name;
+        $service->description    =  $request->description;
 
         try {
-            $strength->save();
+            $service->save();
             return back()->withToastSuccess('Successfully saved.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
@@ -72,10 +73,10 @@ class StrengthController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Strength  $strength
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(Strength $strength)
+    public function show(Service $service)
     {
         //
     }
@@ -83,33 +84,33 @@ class StrengthController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Strength  $strength
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(Strength $strength)
+    public function edit(Service $service)
     {
-        return view('backend.website.strength.edit', compact('strength'));
+        return view('backend.website.strength.edit', compact('service'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Strength  $strength
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Strength $strength)
+    public function update(Request $request, Service $service)
     {
         $request->validate([
             'name' => 'required|string',
-            'percentage' => 'required|numeric',
+            'description' => 'required',
         ]);
 
-        $strength->name    =   $request->name;
-        $strength->percentage    =  $request->percentage;
+        $service->name    =   $request->name;
+        $service->description    =  $request->description;
 
         try {
-            $strength->save();
+            $service->save();
             return back()->withToastSuccess('Successfully updated.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
@@ -119,13 +120,13 @@ class StrengthController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Strength  $strength
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Strength $strength)
+    public function destroy(Service $service)
     {
         try {
-            $strength->delete();
+            $service->delete();
             return response()->json([
                 'type' => 'success',
             ]);
@@ -135,12 +136,11 @@ class StrengthController extends Controller
             ]);
         }
     }
-
-    public function strength(){
-        return view('backend.website.strength.strength');
+    public function service(){
+        return view('backend.website.service.service');
     }
 
-    public function strengthUpdate(Request $request){
+    public function serviceUpdate(Request $request){
         $request->validate([
             'title' => 'required|string',
             'description' => 'required',
@@ -154,4 +154,5 @@ class StrengthController extends Controller
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
         }
     }
+
 }

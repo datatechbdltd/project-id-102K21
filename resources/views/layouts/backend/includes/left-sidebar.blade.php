@@ -73,6 +73,13 @@
                         <li><a href="{{ route('backend.strength.create') }}">Strength create </a></li>
                     </ul>
                 </li>
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Service</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.service') }}">Service </a></li>
+                        <li><a href="{{ route('backend.service.index') }}">Service list </a></li>
+                        <li><a href="{{ route('backend.service.create') }}">Service create </a></li>
+                    </ul>
+                </li>
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Faq</a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('backend.faq.index') }}">Faq list </a></li>
