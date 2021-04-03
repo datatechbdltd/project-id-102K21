@@ -12,7 +12,8 @@ class AboutController extends Controller
     }
 
     public function update(Request $request){
-        update_static_option('website_about', $request->about);
+        update_static_option('about_description', $request->description);
+        update_static_option('about_title', $request->title);
         return back()->withToastSuccess('About updated');
     }
 }

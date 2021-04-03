@@ -145,9 +145,17 @@ class StrengthController extends Controller
             'title' => 'required|string',
             'description' => 'required',
         ]);
+        if ($request->hasFile('image')) {
+            $image             = $request->file('image');
+            $folder_path       = 'uploads/images/website/';
+            $image_new_name    = Str::random(20) . '-' . now()->timestamp . '.' . $image->getClientOriginalExtension();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path . $image_new_name);
+            update_static_option('strength_image', $folder_path . $image_new_name);
+        }
         try {
-            update_static_option('service_title', $request->title);
-            update_static_option('service_description', $request->description);
+            update_static_option('strength_title', $request->title);
+            update_static_option('strength_description', $request->description);
 
             return back()->withToastSuccess('Successfully updated.');
         }catch (\Exception $exception){

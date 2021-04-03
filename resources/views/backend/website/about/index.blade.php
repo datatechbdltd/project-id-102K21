@@ -36,10 +36,19 @@
                         @csrf
                         <div class="col-lg-10">
                             <div class="form-group row">
+                                <label for="title" class="col-sm-4 col-form-label">Title</label>
+                                <div class="col-12">
+                                    <textarea name="title" type="text" class="form-control" id="title">{{ get_static_option('about_title') }}</textarea>
+                                    @error('title')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="description" class="col-sm-4 col-form-label">Description</label>
                                 <div class="col-12">
-                                <textarea name="about" type="text" class="form-control" id="description">
-                                    {!! get_static_option('website_about') !!}</textarea>
+                                <textarea name="description" type="text" class="form-control" id="description">
+                                    {!! get_static_option('about_description') !!}</textarea>
                                 </div>
                             </div>
                             <div class="col-12 text-center">

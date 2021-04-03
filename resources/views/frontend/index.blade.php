@@ -41,11 +41,11 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>About Us</h2>
+                    <h2>{{ get_static_option('about_title') }}</h2>
                 </div>
 
                 <div class="row content">
-                    {!! get_static_option('website_about') !!}
+                    {!! get_static_option('about_description') !!}
                 </div>
 
             </div>

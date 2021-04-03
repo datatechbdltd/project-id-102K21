@@ -55,7 +55,8 @@ class StaticOptionSeeder extends Seeder
         set_static_option('banner_url', null);
         set_static_option('banner_image', null);
 
-        set_static_option('website_about', null);
+        set_static_option('about_title', null);
+        set_static_option('about_description', null);
 
         set_static_option('strength_image', null);
         set_static_option('strength_title', null);
