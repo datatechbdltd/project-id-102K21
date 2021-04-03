@@ -46,10 +46,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="percentage" class="col-sm-4 col-form-label">Percentage</label>
+                            <label for="icon" class="col-sm-4 col-form-label">Icon code (Right click on mouse and chose emoji ...)</label>
                             <div class="col-12">
-                                <input name="percentage" type="text" class="form-control" id="percentage" value="{{ $service->percentage }}">
-                                @error('percentage')
+                                <input name="icon" type="text" class="form-control" id="icon" value=" {{ $service->icon }}">
+                                @error('icon')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-4 col-form-label">Description</label>
+                            <div class="col-12">
+                                <textarea name="description" type="text" class="form-control" id="description">{{ $service->description }}</textarea>
+                                @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

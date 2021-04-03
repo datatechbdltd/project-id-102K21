@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Icon;
 use App\Models\Service;
-use App\Models\Strength;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\DataTables\Facades\DataTables;
 
 class ServiceController extends Controller
@@ -23,11 +20,13 @@ class ServiceController extends Controller
         if ($request->ajax()){
             $data = Service::all();
             return datatables::of($data)
-                ->addColumn('action', function($data) {
+                ->addColumn('icon', function($data) {
+                    return '<h1>'.$data->icon.'</h1>';
+                }) ->addColumn('action', function($data) {
                     return '<a href="'.route('backend.service.edit', $data).'" class="btn btn-info"><i class="fas fa-edit"></i> </a>
                    <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.service.destroy', $data).'"><i class="fas fa-trash"></i> </button>';
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['icon', 'action'])
                 ->make(true);
         }else{
             return view('backend.website.service.index');
@@ -41,7 +40,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('backend.website.service.index');
+        return view('backend.website.service.create');
     }
 
     /**
@@ -55,12 +54,14 @@ class ServiceController extends Controller
         $request->validate([
         'name' => 'required|string',
         'description' => 'required',
+        'icon' => 'required',
         ]);
 
         $service = new Service();
 
         $service->name    =   $request->name;
         $service->description    =  $request->description;
+        $service->icon    =  $request->icon;
 
         try {
             $service->save();
@@ -89,7 +90,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('backend.website.strength.edit', compact('service'));
+        return view('backend.website.service.edit', compact('service'));
     }
 
     /**
@@ -104,10 +105,12 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'required',
+            'icon' => 'required',
         ]);
 
         $service->name    =   $request->name;
         $service->description    =  $request->description;
+        $service->icon    =  $request->icon;
 
         try {
             $service->save();

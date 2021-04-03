@@ -1,9 +1,7 @@
-@push('title')
-    Service
-@endpush
+@push('title') Service @endpush
 @extends('layouts.backend.app')
 @push('style')
-
+    <link href="{{ asset('assets/frontend/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
 @endpush
 @section('breadcrumb')
     <div class="row page-titles">
@@ -37,7 +35,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Percentage (%)</th>
+                                <th>Icon</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -47,7 +45,6 @@
                             <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Percentage (%)</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -74,8 +71,8 @@
                     name: 'name'
                 },
                 {
-                    data: 'percentage',
-                    name: 'percentage'
+                    data: 'icon',
+                    name: 'icon'
                 }, {
                     data: 'action',
                     name: 'action'
