@@ -58,6 +58,7 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::resource('websiteMessage', WebsiteMessageController::class);
 
         Route::post('/message-status-change', [WebsiteMessageController::class, 'messageStatusChange'])->name('messageStatusChange');
+        Route::post('/message-reply-mail', [WebsiteMessageController::class, 'websiteMessageReplyMail'])->name('websiteMessageReplyMail');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('profile-password-update', [ProfileController::class, 'profilePasswordUpdate'])->name('profilePasswordUpdate');

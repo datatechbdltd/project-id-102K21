@@ -140,4 +140,8 @@ class WebsiteMessageController extends Controller
             ]);
         }
     }
+
+    public function websiteMessageReplyMail(Request $request){
+
+    }
 }
