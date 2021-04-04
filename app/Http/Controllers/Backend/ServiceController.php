@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Models\Icon;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
