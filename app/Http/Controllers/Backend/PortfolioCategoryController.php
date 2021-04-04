@@ -22,16 +22,19 @@ class PortfolioCategoryController extends Controller
          if ($request->ajax()){
             $data = PortfolioCategory::orderBy('id', 'desc')->get();
             return datatables::of($data)
-                // ->addColumn('writer', function($data) {
-                //     if($data->writer)
-                //         return '<span class="badge badge-pill badge-success">'.$data->writer->name.'</span>';
-
-                // })
+                ->addColumn('portfolios', function($data) {
+                    $html = "";
+                    foreach($data->portfolios as $portfolio){
+                        if($portfolio)
+                            $html .=  '<span class="badge badge-pill badge-success">'.$portfolio->short_title.'</span>';
+                    }
+                    return $html;
+                })
                 ->addColumn('action', function($data) {
                     return '<a href="'.route('backend.portfolioCategory.edit', $data).'" class="btn btn-info"><i class="fa fa-edit"></i> </a>
                     <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.portfolioCategory.destroy', $data).'"><i class="fa fa-trash"></i> </button>';
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['portfolios','action'])
                 ->make(true);
         }else{
             return view('backend.website.portfolio.category-index');

@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
+use App\Models\PortfolioCategory;
+use App\Models\PortfolioImage;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
 
 class PortfolioController extends Controller
 {
@@ -19,13 +24,23 @@ class PortfolioController extends Controller
         if ($request->ajax()){
             $data = Portfolio::all();
             return datatables::of($data)
-                ->addColumn('icon', function($data) {
-                    return '<h1>'.$data->icon.'</h1>';
-                }) ->addColumn('action', function($data) {
-                    return '<a href="'.route('backend.service.edit', $data).'" class="btn btn-info"><i class="fas fa-edit"></i> </a>
-                   <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.service.destroy', $data).'"><i class="fas fa-trash"></i> </button>';
+                ->addColumn('image', function($data) {
+                    $html ="";
+                    foreach($data->image as $image){
+                        $html .='<img class="rounded-circle" height="70px;" width="70px;" src="'.$image->image.'" /><br>';
+                    }
+                    return $html;
+                })->addColumn('status', function($data) {
+                    if($data->is_active == true){
+                        return '<span class="badge badge-pill badge-success">Active</span>';
+                    }else{
+                        return '<span class="badge badge-pill badge-danger">Inactive</span>';
+                    }
+                })->addColumn('action', function($data) {
+                    return '<a href="'.route('backend.portfolio.edit', $data).'" class="btn btn-info"><i class="fas fa-edit"></i> </a>
+                   <button class="btn btn-danger" onclick="delete_function(this)" value="'.route('backend.portfolio.destroy', $data).'"><i class="fas fa-trash"></i> </button>';
                 })
-                ->rawColumns(['icon', 'action'])
+                ->rawColumns(['image','status', 'action'])
                 ->make(true);
         }else{
             return view('backend.website.portfolio.index');
@@ -39,7 +54,8 @@ class PortfolioController extends Controller
      */
     public function create()
     {
-        return view('backend.website.portfolio.create');
+        $portfolioCategories = PortfolioCategory::all();
+        return view('backend.website.portfolio.create', compact('portfolioCategories'));
     }
 
     /**
@@ -50,7 +66,45 @@ class PortfolioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'short_title' => 'required|string',
+            'long_title' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'status' => 'required',
+            'category' => 'required|exists:portfolio_categories,id',
+            'image' => 'nullable|image',
+        ]);
+
+        $portfolio = new Portfolio();
+
+        $portfolio->short_title    =   $request->short_title ;
+        $portfolio->long_title    =   $request->long_title ;
+        $portfolio->is_active    =  $request->status;
+        $portfolio->short_description    =  $request->short_description;
+        $portfolio->long_description    =  $request->long_description;
+        $portfolio->category_id    =  $request->category;
+        $portfolio->slug    =  $request->short_title.time().'-'.Str::random(12);
+        $portfolio->save();
+
+        if($request->hasFile('image')){
+
+            $image             = $request->file('image');
+            $folder_path       = 'uploads/images/portfolio/';
+            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
+
+            $portfolio_image = new PortfolioImage();
+            $portfolio_image->portfolio_id = $portfolio->id;
+            $portfolio_image->image = $folder_path . $image_new_name;
+            $portfolio_image->save();
+        }
+        try {
+            return back()->withToastSuccess('Successfully saved.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
     }
 
     /**
@@ -72,7 +126,8 @@ class PortfolioController extends Controller
      */
     public function edit(Portfolio $portfolio)
     {
-        //
+        $portfolioCategories = PortfolioCategory::all();
+        return view('backend.website.portfolio.edit', compact('portfolioCategories','portfolio'));
     }
 
     /**
@@ -84,7 +139,43 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, Portfolio $portfolio)
     {
-        //
+        $request->validate([
+            'short_title' => 'required|string',
+            'long_title' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'status' => 'required',
+            'category' => 'required|exists:portfolio_categories,id',
+            'image' => 'nullable|image',
+        ]);
+
+        $portfolio->short_title    =   $request->short_title ;
+        $portfolio->long_title    =   $request->long_title ;
+        $portfolio->is_active    =  $request->status;
+        $portfolio->short_description    =  $request->short_description;
+        $portfolio->long_description    =  $request->long_description;
+        $portfolio->category_id    =  $request->category;
+        $portfolio->slug    =  $request->short_title.time().'-'.Str::random(12);
+        $portfolio->save();
+
+        if($request->hasFile('image')){
+
+            $image             = $request->file('image');
+            $folder_path       = 'uploads/images/portfolio/';
+            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
+
+            $portfolio_image = new PortfolioImage();
+            $portfolio_image->portfolio_id = $portfolio->id;
+            $portfolio_image->image = $folder_path . $image_new_name;
+            $portfolio_image->save();
+        }
+        try {
+            return back()->withToastSuccess('Successfully saved.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
     }
 
     /**
@@ -95,7 +186,20 @@ class PortfolioController extends Controller
      */
     public function destroy(Portfolio $portfolio)
     {
-        //
+        try {
+            foreach($portfolio->image as $image){
+                if ($image->image != null)
+                    File::delete(public_path($image->image)); //Old image delete
+            }
+            $portfolio->delete();
+            return response()->json([
+                'type' => 'success',
+            ]);
+        }catch (\Exception$exception){
+            return response()->json([
+                'type' => 'error',
+            ]);
+        }
     }
 
     public function portfolio(){

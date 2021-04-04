@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StrengthSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(PortfolioCategorySeeder::class);
+        $this->call(PortfolioSeeder::class);
     }
 }

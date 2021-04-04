@@ -20,6 +20,7 @@ class CreatePortfoliosTable extends Migration
             $table->string('long_title');
             $table->longText('short_description');
             $table->longText('long_description');
+            $table->string('slug');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

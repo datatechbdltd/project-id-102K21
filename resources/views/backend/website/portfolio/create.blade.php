@@ -58,21 +58,54 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label for="icon" class="col-sm-4 col-form-label">Icon code (Right click on mouse and chose emoji ...)</label>
+                            <label for="category" class="col-sm-4 col-form-label">Select Category</label>
                             <div class="col-12">
-                                <input name="icon" type="text" class="form-control" id="icon" value=" {{ old('icon') }}">
-                                @error('icon')
+                                <select name="category" id="category"  class="form-control" >
+                                    @foreach ($portfolioCategories as $portfolioCategory)
+                                        <option @if(old('category') == $portfolioCategory->id)  selected @endif value="{{ $portfolioCategory->id }}">{{ $portfolioCategory->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('category')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="description" class="col-sm-4 col-form-label">Description</label>
+                            <label for="status" class="col-sm-4 col-form-label">Status</label>
                             <div class="col-12">
-                                <textarea name="description" type="text" class="form-control" id="description">{{ old('description') }}</textarea>
-                                @error('description')
+                                <select name="status" id="status"  class="form-control" >
+                                    <option @if (old('status') == true) selected @endif value="1">Active </option>
+                                    <option @if (old('status') == false) selected @endif value="0">Inactive </option>
+                                </select>
+                                @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="short_description" class="col-sm-4 col-form-label">Short description</label>
+                            <div class="col-12">
+                                <textarea name="short_description" type="text" class="form-control" id="short_description">{!! old('short_description') !!}</textarea>
+                                @error('short_description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="long_description" class="col-sm-4 col-form-label">Long description</label>
+                            <div class="col-12">
+                                <textarea name="long_description" type="text" class="form-control" id="long_description">{!! old('long_description') !!}</textarea>
+                                @error('long_description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="image" class="col-sm-4 col-form-label">Image</label>
+                            <div class="col-12">
+                                <input name="image" type="file" accept="image/*" class="form-control" id="image">
+                                @error('image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -92,3 +125,36 @@
 @push('script')
 
 @endpush
+@push('summer-note')
+    <script>
+        $('#short_description').summernote({
+            placeholder: 'Short description ....',
+            tabsize: 2,
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+        $('#long_description').summernote({
+            placeholder: 'Long description ....',
+            tabsize: 2,
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+@endpush
+

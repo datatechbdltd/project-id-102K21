@@ -34,8 +34,9 @@
                         <table id="datatable" class="display table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Icon</th>
+                                <th>Short title</th>
+                                <th>Image</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -44,7 +45,9 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>Name</th>
+                                <th>Short title</th>
+                                <th>Image</th>
+                                <th>Status</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -67,13 +70,18 @@
                 serverSide: true,
                 ajax: '{!! route('backend.portfolio.index') !!}',
                 columns: [{
-                    data: 'name',
-                    name: 'name'
+                    data: 'short_title',
+                    name: 'short_title'
                 },
                 {
-                    data: 'icon',
-                    name: 'icon'
-                }, {
+                    data: 'image',
+                    name: 'image'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
                     data: 'action',
                     name: 'action'
                 },

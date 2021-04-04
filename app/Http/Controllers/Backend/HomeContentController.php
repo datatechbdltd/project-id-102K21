@@ -124,7 +124,6 @@ class HomeContentController extends Controller
      */
     public function update(Request $request, HomeContent $homeContent)
     {
-
         $request->validate([
             'serial' => 'required|integer|unique:home_contents,serial,'.$homeContent->id,
             'title' => 'required|string',

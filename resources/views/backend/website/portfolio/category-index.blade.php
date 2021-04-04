@@ -37,7 +37,8 @@
                             <table id="datatable" class="display table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>name</th>
+                                        <th>Name</th>
+                                        <th>Portfolios</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -46,7 +47,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>name</th>
+                                        <th>Name</th>
+                                        <th>Portfolios</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -73,6 +75,10 @@
             columns: [{
                     data: 'name',
                     name: 'name'
+                },
+                {
+                    data: 'portfolios',
+                    name: 'portfolios'
                 },
                 {
                     data: 'action',
