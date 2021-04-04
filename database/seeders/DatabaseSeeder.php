@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CustomPageSeeder::class);
         $this->call(StrengthSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(PortfolioCategorySeeder::class);
     }
 }

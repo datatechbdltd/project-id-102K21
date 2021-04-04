@@ -41,14 +41,24 @@
                     @csrf
                     <div class="col-lg-10">
                         <div class="form-group row">
-                            <label for="name" class="col-sm-4 col-form-label">Name</label>
+                            <label for="short_title" class="col-sm-4 col-form-label">Short title</label>
                             <div class="col-12">
-                                <input name="name" type="text" class="form-control" id="name" value=" {{ old('name') }}">
-                                @error('name')
+                                <input name="short_title" type="text" class="form-control" id="short_title" value=" {{ old('short_title') }}">
+                                @error('short_title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="long_title" class="col-sm-4 col-form-label">Long title</label>
+                            <div class="col-12">
+                                <input name="long_title" type="text" class="form-control" id="long_title" value=" {{ old('long_title') }}">
+                                @error('long_title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="icon" class="col-sm-4 col-form-label">Icon code (Right click on mouse and chose emoji ...)</label>
                             <div class="col-12">
