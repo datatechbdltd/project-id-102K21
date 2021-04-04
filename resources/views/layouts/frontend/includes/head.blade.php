@@ -48,3 +48,6 @@
 * License: https://bootstrapmade.com/license/
 * Developed by: DATATECH BD LTD
 ======================================================== -->
+
+<!--====== AJAX ======-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

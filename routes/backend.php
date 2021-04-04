@@ -16,13 +16,11 @@ use App\Http\Controllers\Backend\FaqController;
 use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\PartnerController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\SubscriberController;
 use App\Http\Controllers\Backend\TestimonialController;
+use App\Http\Controllers\Backend\WebsiteMessageController;
 
-
-
-
-
-    Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
+Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/banner', [BannerController::class, 'index'])->name('banner');
@@ -56,6 +54,11 @@ use App\Http\Controllers\Backend\TestimonialController;
         Route::resource('partner', PartnerController::class);
         Route::resource('testimonial', TestimonialController::class);
         Route::resource('customPage', CustomPageController::class);
+        Route::resource('subscriber', SubscriberController::class);
+        Route::resource('websiteMessage', WebsiteMessageController::class);
+
+        Route::post('/message-status-change', [WebsiteMessageController::class, 'messageStatusChange'])->name('messageStatusChange');
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
         Route::post('profile-password-update', [ProfileController::class, 'profilePasswordUpdate'])->name('profilePasswordUpdate');
         Route::post('profile-info-update', [ProfileController::class, 'profileInfoUpdate'])->name('profileInfoUpdate');

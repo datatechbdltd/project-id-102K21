@@ -9,3 +9,10 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+<!-- End JS -->
+<script src="{{ asset('assets/helpers/helper.js') }}"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+@include('sweetalert::alert')
+@stack('script')
+@stack('summer-note')

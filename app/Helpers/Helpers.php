@@ -74,9 +74,9 @@ if (!function_exists('random_code')){
        return \App\Models\CustomPage::orderBy('serial', 'asc')->get();
    }
 
-//    function website_incomplete_messages(){
-//        return \App\Models\ContactUs::where('is_process_complete', false)->count();
-//    }
+   function website_incomplete_messages(){
+       return \App\Models\WebsiteMessage::where('is_process_complete', false)->count();
+   }
 
 
 }

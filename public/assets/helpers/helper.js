@@ -93,7 +93,7 @@
             })
         });
 
-        // subscribe now
+        // // subscribe now
         $('.subscribe-now-btn').click(function (){
             $.ajax({
                 method: 'POST',

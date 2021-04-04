@@ -52,6 +52,17 @@
                         <i class="ti-files"></i><span class="hide-menu">About</span>
                     </a>
                 </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ route('backend.subscriber.index') }}">
+                        <i class="ti-files"></i><span class="hide-menu">Subscriber</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="{{ route('backend.websiteMessage.index') }}">
+                        <i class="ti-files"></i><span class="hide-menu">Messages<span  class="badge badge-warning">{{ website_incomplete_messages() }}</span></span>
+                    </a>
+                </li>
+
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Partner</a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('backend.partner.index') }}">Partner list </a></li>
