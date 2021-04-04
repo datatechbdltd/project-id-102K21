@@ -33,7 +33,8 @@ class WebsiteMessageController extends Controller
                     return '<a href="tel:'.$data->phone.'">'.$data->phone.'</a>';
                 })
                 ->addColumn('action', function ($data) {
-                    return '<button class="text-white btn btn-danger " onclick="delete_function(this)" value="'. route('backend.websiteMessage.destroy', $data).'">Delete</button>';
+                    return '<a href="'.route('backend.websiteMessage.show', $data).'" class="text-white btn btn-info">Show</a>
+                    <button class="text-white btn btn-danger " onclick="delete_function(this)" value="'. route('backend.websiteMessage.destroy', $data).'">Delete</button>';
                 })
                 ->rawColumns(['email','status','phone','action'])
                 ->make(true);
@@ -69,9 +70,9 @@ class WebsiteMessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(WebsiteMessage $websiteMessage)
     {
-        //
+        return view('backend.message.show', compact('websiteMessage'));
     }
 
     /**

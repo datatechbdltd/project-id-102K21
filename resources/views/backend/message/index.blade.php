@@ -3,9 +3,7 @@
 @endpush
 @extends('layouts.backend.app')
 @push('style')
-    <link href="{{ asset('assets/frontend/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('assets/backend/node_modules/bootstrap-switch/bootstrap-switch.min.css') }}" rel="stylesheet">
 @endpush
 @section('breadcrumb')
     <div class="row page-titles">
@@ -41,7 +39,6 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Status</th>
-                                    <th>Subject</th>
                                     <th>Message</th>
                                     <th>Action</th>
                                 </tr>
@@ -55,7 +52,6 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Status</th>
-                                    <th>Subject</th>
                                     <th>Message</th>
                                 </tr>
                             </tfoot>
@@ -70,30 +66,6 @@
     <!-- End Contentbar -->
 @endsection
 @push('script')
-    <!-- bt-switch -->
-    <script src="{{ asset('assets/backend/node_modules/bootstrap-switch/bootstrap-switch.min.js') }}"></script>
-    <script type="text/javascript">
-        $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
-        var radioswitch = function() {
-            var bt = function() {
-                $(".radio-switch").on("switch-change", function() {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioState")
-                }), $(".radio-switch").on("switch-change", function() {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
-                }), $(".radio-switch").on("switch-change", function() {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
-                })
-            };
-            return {
-                init: function() {
-                    bt()
-                }
-            }
-        }();
-        $(document).ready(function() {
-            radioswitch.init()
-        });
-    </script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script>
         $(function() {
@@ -119,14 +91,6 @@
                         name: 'status'
                     },
                     {
-                        data: 'subject',
-                        name: 'subject'
-                    },
-                    {
-                        data: 'message',
-                        name: 'message'
-                    },
-                    {
                         data: 'action',
                         name: 'action'
                     },
@@ -143,69 +107,6 @@
                 }
             });
         });
-        $('.is_process_complete').click(function(){
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You will be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Change it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var formData = new FormData();
-                    formData.append('order', $(this).parent().find('.order-id').val())
-                    formData.append('is_process_complete',  $(this).prop('checked') === true ? 1 : 0)
-                    $.ajax({
-                        method: 'POST',
-                        url: "{{ url('domainOrderStatusChange') }}",
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            if (data.type == 'success'){
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: data.type,
-                                    title: data.message,
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 800);//
-                            }else{
-                                Swal.fire({
-                                    icon: data.type,
-                                    title: 'Oops...',
-                                    text: data.message,
-                                    footer: 'Something went wrong!'
-                                });
-                            }
-                        },
-                        error: function (xhr) {
-                            var errorMessage = '<div class="card bg-danger">\n' +
-                                '                        <div class="card-body text-center p-5">\n' +
-                                '                            <span class="text-white">';
-                            $.each(xhr.responseJSON.errors, function(key,value) {
-                                errorMessage +=(''+value+'<br>');
-                            });
-                            errorMessage +='</span>\n' +
-                                '                        </div>\n' +
-                                '                    </div>';
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                footer: errorMessage
-                            });
-                        },
-                    });
-                }
-            })
-        });
-
         function changeStatus(messege_id,old_is_porcess_complete){
             Swal.fire({
                 title: 'Are you sure?',
@@ -274,30 +175,6 @@
             })
         }
     </script>
-     <!-- bt-switch -->
-     <script src="{{ asset('assets/backend/node_modules/bootstrap-switch/bootstrap-switch.min.js') }}"></script>
-     <script type="text/javascript">
-        $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
-        var radioswitch = function() {
-            var bt = function() {
-                $(".radio-switch").on("switch-change", function() {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioState")
-                }), $(".radio-switch").on("switch-change", function() {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
-                }), $(".radio-switch").on("switch-change", function() {
-                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
-                })
-            };
-            return {
-                init: function() {
-                    bt()
-                }
-            }
-        }();
-        $(document).ready(function() {
-            radioswitch.init()
-        });
-     </script>
 @endpush
 @push('summer-note')
 
