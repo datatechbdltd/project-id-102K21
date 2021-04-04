@@ -41,6 +41,9 @@ use App\Http\Controllers\Backend\TestimonialController;
         Route::get('/portfolio-page', [PortfolioController::class, 'portfolio'])->name('portfolio');
         Route::post('/portfolio/update', [PortfolioController::class, 'portfolioUpdate'])->name('portfolioUpdate');
 
+        Route::get('/faq-page', [FaqController::class, 'faq'])->name('faq');
+        Route::post('/faq/update', [FaqController::class, 'faqUpdate'])->name('faqUpdate');
+
         Route::resource('homeContent', HomeContentController::class);
         Route::resource('homeContentFaq', HomeContentFaqController::class);
         Route::resource('strength', StrengthController::class);

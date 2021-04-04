@@ -91,6 +91,7 @@
                 </li>
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Faq</a>
                     <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.faq') }}">Faq </a></li>
                         <li><a href="{{ route('backend.faq.index') }}">Faq list </a></li>
                         <li><a href="{{ route('backend.faq.create') }}">Faq create </a></li>
                     </ul>

@@ -68,5 +68,8 @@ class StaticOptionSeeder extends Seeder
         set_static_option('portfolio_title', null);
         set_static_option('portfolio_description', null);
 
+        set_static_option('faq_title', null);
+        set_static_option('faq_description', null);
+
     }
 }

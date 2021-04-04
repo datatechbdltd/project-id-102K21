@@ -132,4 +132,23 @@ class FaqController extends Controller
             ]);
         }
     }
+
+    public function faq(){
+        return view('backend.website.faq.faq');
+    }
+
+    public function faqUpdate(Request $request){
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+        try {
+            update_static_option('faq_title', $request->title);
+            update_static_option('faq_description', $request->description);
+
+            return back()->withToastSuccess('Successfully updated.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+    }
 }

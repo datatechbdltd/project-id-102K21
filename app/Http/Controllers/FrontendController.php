@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\HomeContent;
 use App\Models\Partner;
 use App\Models\Service;
@@ -15,6 +16,7 @@ class FrontendController extends Controller
         $home_contents = HomeContent::orderBy('serial', 'asc')->get();
         $strengths = Strength::all();
         $services = Service::all();
-        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services'));
+        $faqs = Faq::all();
+        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs'));
     }
 }
