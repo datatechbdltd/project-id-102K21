@@ -20,13 +20,11 @@
             <div class="row">
 
                 <div class="col-lg-3 col-md-6 footer-contact">
-                    <h3>Arsha</h3>
+                    <h3>{{ config('app.name') }}</h3>
                     <p>
-                        A108 Adam Street <br>
-                        New York, NY 535022<br>
-                        United States <br><br>
-                        <strong>Phone:</strong> +1 5589 55488 55<br>
-                        <strong>Email:</strong> info@example.com<br>
+                       {{ get_static_option('company_address') }} <br><br>
+                        <strong>Phone:</strong> {{ get_static_option('company_email') }}<br>
+                        <strong>Email:</strong> {{ get_static_option('company_email') }}<br>
                     </p>
                 </div>
 
@@ -56,11 +54,11 @@
                     <h4>Our Social Networks</h4>
                     <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
                     <div class="social-links mt-3">
-                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        <a href="{{ get_static_option('company_twitter_link') ?? 'javascript:0' }}" target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        <a href="{{ get_static_option('company_facebook_link') ?? 'javascript:0' }}" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        <a href="{{ get_static_option('company_instagram_link') ?? 'javascript:0' }}" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        <a href="{{ get_static_option('company_linkedin_link') ?? 'javascript:0' }}" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        <a href="{{ get_static_option('company_youtube_link') ?? 'javascript:0' }}" target="_blank" class="youtube"><i class="bx bxl-youtube"></i></a>
                     </div>
                 </div>
 
@@ -70,14 +68,10 @@
 
     <div class="container footer-bottom clearfix">
         <div class="copyright">
-            &copy; Copyright <strong><span>Arsha</span></strong>. All Rights Reserved
+            {!! get_static_option('footer_credit') !!}
         </div>
         <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            &copy; {{ date('Y') }} Copyright <strong><span><a href="{{ url('/') }}">{{ config('app.name') }}</a></span></strong>
         </div>
     </div>
 </footer><!-- End Footer -->
