@@ -17,12 +17,12 @@ class PortfolioSeeder extends Seeder
     {
         for ($i = 1; $i <= 6; $i++) {
             $portfolio = new Portfolio();
-            $portfolio->short_title = 'Protfolio short title '.$i;
-            $portfolio->long_title = 'Protfolio long title '.$i;
-            $portfolio->short_description = 'Protfolio short description '.$i;
-            $portfolio->long_description = 'Protfolio long description '.$i;
+            $portfolio->short_title = 'Portfolio short title '.$i;
+            $portfolio->long_title = 'Portfolio long title '.$i;
+            $portfolio->short_description = 'Portfolio short description '.$i;
+            $portfolio->long_description = 'Portfolio long description '.$i;
             $portfolio->category_id = $i;
-            $portfolio->slug = 'Protfolio short title '.$i.time().'-'.Str::random(12);
+            $portfolio->slug = Str::slug('portfolio short title '.$i, '-');
             $portfolio->save();
         }
     }

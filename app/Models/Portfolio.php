@@ -23,8 +23,8 @@ class Portfolio extends Model
         return $this->belongsTo(PortfolioCategory::class, 'category_id', 'id');
     }
 
-     //image
-     public function image(){
+     //images
+     public function images(){
         return $this->hasMany(PortfolioImage::class, 'portfolio_id', 'id');
     }
 

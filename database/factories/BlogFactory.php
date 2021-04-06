@@ -27,7 +27,7 @@ class BlogFactory extends Factory
             'title'        => $this->faker->name,
             'writer_id'    => 1,
             'description'  => $this->faker->text,
-            'slug'  => time().'-'. Str::random(12),
+            'slug'  => Str::slug($this->faker->name, '-'),
         ];
     }
 }

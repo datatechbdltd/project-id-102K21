@@ -74,11 +74,10 @@ class BlogController extends Controller
         $blog->title    =   $request->title;
         $blog->is_active    =  $request->status;
         $blog->description    =  $request->description;
-        $blog->slug    =  time().'-'.Str::random(12);
+        $blog->slug    =  Str::slug($request->title, '-');
         $blog->writer_id    =  1;
 
         if($request->hasFile('image')){
-
             $image             = $request->file('image');
             $folder_path       = 'uploads/images/blog/';
             $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();

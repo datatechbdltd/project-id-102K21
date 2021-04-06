@@ -6,6 +6,8 @@ use App\Models\CallToAction;
 use App\Models\Faq;
 use App\Models\HomeContent;
 use App\Models\Partner;
+use App\Models\Portfolio;
+use App\Models\PortfolioCategory;
 use App\Models\Service;
 use App\Models\Strength;
 use App\Models\WebsiteMessage;
@@ -21,7 +23,8 @@ class FrontendController extends Controller
         $services = Service::all();
         $faqs = Faq::all();
         $callToActions = CallToAction::all();
-        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions'));
+        $portfolioCategories = PortfolioCategory::all();
+        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions', 'portfolioCategories'));
     }
 
     public function contactMessageStore(Request $request){

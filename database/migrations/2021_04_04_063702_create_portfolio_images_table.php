@@ -17,6 +17,8 @@ class CreatePortfolioImagesTable extends Migration
             $table->id();
             $table->foreignId('portfolio_id');
             $table->string('image');
+            $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
     }

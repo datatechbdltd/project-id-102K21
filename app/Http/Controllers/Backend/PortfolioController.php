@@ -84,23 +84,22 @@ class PortfolioController extends Controller
         $portfolio->short_description    =  $request->short_description;
         $portfolio->long_description    =  $request->long_description;
         $portfolio->category_id    =  $request->category;
-        $portfolio->slug    =  $request->short_title.time().'-'.Str::random(12);
-        $portfolio->save();
+        $portfolio->slug    =  Str::slug($request->short_title, '-');
 
-        if($request->hasFile('image')){
-
-            $image             = $request->file('image');
-            $folder_path       = 'uploads/images/portfolio/';
-            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
-            //resize and save to server
-            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
-
-            $portfolio_image = new PortfolioImage();
-            $portfolio_image->portfolio_id = $portfolio->id;
-            $portfolio_image->image = $folder_path . $image_new_name;
-            $portfolio_image->save();
-        }
+//        if($request->hasFile('image')){
+//            $image             = $request->file('image');
+//            $folder_path       = 'uploads/images/portfolio/';
+//            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
+//            //resize and save to server
+//            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
+//
+//            $portfolio_image = new PortfolioImage();
+//            $portfolio_image->portfolio_id = $portfolio->id;
+//            $portfolio_image->image = $folder_path . $image_new_name;
+//            $portfolio_image->save();
+//        }
         try {
+            $portfolio->save();
             return back()->withToastSuccess('Successfully saved.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());

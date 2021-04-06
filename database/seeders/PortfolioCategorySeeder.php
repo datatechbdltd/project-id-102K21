@@ -16,7 +16,7 @@ class PortfolioCategorySeeder extends Seeder
     {
         for ($i = 1; $i <= 6; $i++) {
             $category = new PortfolioCategory();
-            $category->name = 'Protfolio Category'.$i;
+            $category->name = 'Portfolio Category'.$i;
             $category->save();
         }
     }
