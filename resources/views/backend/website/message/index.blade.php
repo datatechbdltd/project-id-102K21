@@ -39,7 +39,6 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Status</th>
-                                    <th>Message</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -52,7 +51,6 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Status</th>
-                                    <th>Message</th>
                                 </tr>
                             </tfoot>
                         </table>

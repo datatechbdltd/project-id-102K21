@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SingleEmailSenderJob;
 use App\Models\WebsiteMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Yajra\DataTables\Facades\DataTables;
 class WebsiteMessageController extends Controller
 {
@@ -23,9 +25,9 @@ class WebsiteMessageController extends Controller
                 })
                 ->addColumn('status', function ($data) {
                     if($data->is_process_complete == 0){
-                        $html = '<button type="button" class="btn btn-block btn-lg btn-warning" value="'.$data->id.'" onclick="changeStatus(\''.$data->id.'\',\''.$data->is_process_complete.'\')" >Inprocess</button>';
+                        $html = '<button type="button" class="btn btn-block btn-lg btn-warning mt-2" value="'.$data->id.'" onclick="changeStatus(\''.$data->id.'\',\''.$data->is_process_complete.'\')" >Inprocess</button>';
                     }elseif($data->is_process_complete == 1){
-                        $html = '<button type="button" class="btn btn-block btn-lg btn-success" value="'.$data->id.'" onclick="changeStatus(\''.$data->id.'\',\''.$data->is_process_complete.'\')" >Completed</button>';
+                        $html = '<button type="button" class="btn btn-block btn-lg btn-success mt-2" value="'.$data->id.'" onclick="changeStatus(\''.$data->id.'\',\''.$data->is_process_complete.'\')" >Completed</button>';
                     }
                          return $html;
                     })
@@ -33,13 +35,13 @@ class WebsiteMessageController extends Controller
                     return '<a href="tel:'.$data->phone.'">'.$data->phone.'</a>';
                 })
                 ->addColumn('action', function ($data) {
-                    return '<a href="'.route('backend.websiteMessage.show', $data).'" class="text-white btn btn-info">Show</a>
-                    <button class="text-white btn btn-danger " onclick="delete_function(this)" value="'. route('backend.websiteMessage.destroy', $data).'">Delete</button>';
+                    return '<div class="row"></div><a href="'.route('backend.websiteMessage.show', $data).'" class="text-white btn btn-info col mb-1">Show</a>
+                    <button class="text-white btn btn-danger col" onclick="delete_function(this)" value="'. route('backend.websiteMessage.destroy', $data).'">Delete</button></div>';
                 })
                 ->rawColumns(['email','status','phone','action'])
                 ->make(true);
         } else {
-            return view('backend.message.index');
+            return view('backend.website.message.index');
         }
     }
 
@@ -72,7 +74,7 @@ class WebsiteMessageController extends Controller
      */
     public function show(WebsiteMessage $websiteMessage)
     {
-        return view('backend.message.show', compact('websiteMessage'));
+        return view('backend.website.message.show', compact('websiteMessage'));
     }
 
     /**
@@ -142,6 +144,14 @@ class WebsiteMessageController extends Controller
     }
 
     public function websiteMessageReplyMail(Request $request){
-
+        $request->validate([
+            'email'=> 'required|email',
+            'description'=> 'required|string',
+        ]);
+        //Send  to job
+        dispatch(new SingleEmailSenderJob($request->email, $request->description))->delay(now()->addSeconds(5));
+        //Run queue for one time
+        Artisan::call('queue:work --once');
+        return back()->withToastSuccess('Successfully mail sent to '.$request->email);
     }
 }

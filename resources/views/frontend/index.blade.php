@@ -469,99 +469,43 @@
                     </div>
 
                     <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <div  class="php-email-form" id="contact-form">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="name">Your Name</label>
-                                    <input type="text" name="name" class="form-control" id="name" required>
+                        <div  class="php-email-form" id="">
+                            <form action="" id="contact-form">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Your Name</label>
+                                        <input type="text" name="name" class="form-control" id="name" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Your Email</label>
+                                        <input type="email" class="form-control" name="email" id="email" required>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="email">Your Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" required>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" name="phone" id="phone" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="subject">Subject</label>
+                                        <input type="text" class="form-control" name="subject" id="subject" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="phone">Phone</label>
-                                    <input type="text" class="form-control" name="phone" id="phone" required>
+                                <div class="form-group">
+                                    <label for="name">Message</label>
+                                    <textarea id="message" class="form-control" name="message" rows="7" required></textarea>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="subject">Subject</label>
-                                    <input type="text" class="form-control" name="subject" id="subject" required>
+                                <div class="my-3">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your message has been sent. Thank you!</div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="name">Message</label>
-                                <textarea id="message" class="form-control" name="message" rows="7" required></textarea>
-                            </div>
-                            <div class="my-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
-                            </div>
-                            <div class="text-center send-message-button"><button type="submit">Send Message</button></div>
+                                <div class="text-center send-message-button"><button type="submit">Send Message</button></div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section><!-- End Contact Section -->
     </main><!-- End #main -->
-    <script>
-        //contact-form-submit
-        $(document).ready(function(){
-            $(".send-message-button").click(function (){
-                var formData = new FormData();
-                formData.append('name', $('#contact-form').find('#name').val())
-                formData.append('email', $('#contact-form').find('#email').val())
-                formData.append('phone', $('#contact-form').find('#phone').val())
-                formData.append('subject', $('#contact-form').find('#subject').val())
-                formData.append('message', $('#contact-form').find('#message').val())
-                $.ajax({
-                    method: 'POST',
-                    url: "/contact-message-store",
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        if (data.type == 'success'){
-                            Swal.fire({
-                                position: 'top-end',
-                                icon: data.type,
-                                title: data.message,
-                                timer: 1500
-                            });
-                            setTimeout(function () {
-                                location.reload();
-                            }, 800);
-                        }else{
-                            Swal.fire({
-                                icon: data.type,
-                                title: 'Oops...',
-                                text: data.message,
-                                footer: 'Something went wrong!'
-                            });
-                        }
-                    },
-                    error: function (xhr) {
-                        var errorMessage = '<div class="card bg-danger">\n' +
-                            '                        <div class="card-body text-center p-5">\n' +
-                            '                            <span class="text-white">';
-                        $.each(xhr.responseJSON.errors, function(key,value) {
-                            errorMessage +=(''+value+'<br>');
-                        });
-                        errorMessage +='</span>\n' +
-                            '                        </div>\n' +
-                            '                    </div>';
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            footer: errorMessage
-                        });
-                    },
-                });
-            })
-        })
-    </script>
 @endsection

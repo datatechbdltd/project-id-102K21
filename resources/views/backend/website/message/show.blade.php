@@ -61,10 +61,26 @@
                         @csrf
                         <div class="col-lg-10">
                             <div class="form-group row">
-                                <label for="description" class="col-sm-4 col-form-label">Description</label>
+                                <label for="description" class="col-sm-4 col-form-label"><h3><span class="badge badge-success">Send email to: &nbsp; {{ $websiteMessage->email }}</span></h3></label>
                                 <div class="col-12">
                                     <input name="email" type="hidden" value="{{ $websiteMessage->email }}">
-                                    <textarea name="description" type="text" class="form-control" id="description">{!! get_static_option('strength_description') !!}</textarea>
+                                    <textarea name="description" type="text" class="form-control" id="description">
+                                        <br><br><br><br><br><br><br><br><br>
+                                        <hr class="bg-success">
+                                        <hr class="bg-info">
+                                        <h4><b>Reply message of,</b></h4>
+                                        <div class="card-body">
+                                        <small class="text-muted">Name :</small>
+                                        <h6> {{ $websiteMessage->name }}</h6>
+                                        <small class="text-muted p-t-30 db">Phone :</small>
+                                        <h6>{{ $websiteMessage->phone }}</h6>
+                                        <small class="text-muted p-t-30 db">Email :</small>
+                                        <h6>{{ $websiteMessage->email }}</h6>
+                                        <small class="text-muted p-t-30 db">Subject :</small>
+                                        <h6>{{ $websiteMessage->subject }}</h6>
+                                        <small class="text-muted p-t-30 db">Message :</small>
+                                        <h6>{{ $websiteMessage->message }}</h6>
+                                    </textarea>
                                     @error('description')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -89,9 +105,9 @@
 @push('summer-note')
     <script>
         $('#description').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Write email description ....',
             tabsize: 2,
-            height: 200,
+            height: 400,
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'underline', 'clear']],

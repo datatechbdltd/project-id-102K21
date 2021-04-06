@@ -283,3 +283,58 @@
 
 
 
+    //contact-form-submit
+    $(document).ready(function(){
+        $(".send-message-button").click(function (){
+            var formData = new FormData();
+            formData.append('name', $('#contact-form').find('#name').val())
+            formData.append('email', $('#contact-form').find('#email').val())
+            formData.append('phone', $('#contact-form').find('#phone').val())
+            formData.append('subject', $('#contact-form').find('#subject').val())
+            formData.append('message', $('#contact-form').find('#message').val())
+            $.ajax({
+                method: 'POST',
+                url: "/contact-message-store",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.type == 'success'){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: data.type,
+                            title: data.message,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            $('#contact-form').trigger("reset");
+                        }, 800);
+                    }else{
+                        Swal.fire({
+                            icon: data.type,
+                            title: 'Oops...',
+                            text: data.message,
+                            footer: 'Something went wrong!'
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    var errorMessage = '<div class="card bg-danger">\n' +
+                        '                        <div class="card-body text-center p-5">\n' +
+                        '                            <span class="text-white">';
+                    $.each(xhr.responseJSON.errors, function(key,value) {
+                        errorMessage +=(''+value+'<br>');
+                    });
+                    errorMessage +='</span>\n' +
+                        '                        </div>\n' +
+                        '                    </div>';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        footer: errorMessage
+                    });
+                },
+            });
+        })
+    })

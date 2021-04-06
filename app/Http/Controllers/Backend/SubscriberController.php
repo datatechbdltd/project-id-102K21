@@ -29,7 +29,7 @@ class SubscriberController extends Controller
                 ->rawColumns(['email','action'])
                 ->make(true);
         } else {
-            return view('backend.subscriber.index');
+            return view('backend.website.subscriber.index');
         }
     }
 
