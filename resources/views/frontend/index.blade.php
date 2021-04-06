@@ -177,7 +177,7 @@
                                     <h4>{{ $portfolio->short_title }}</h4>
                                     <p>{{ $portfolioCategory->name }}</p>
                                     <a href="{{ asset($portfolio->images->first() ?? get_static_option('no_image')) }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ $portfolio->name }}"><i class="bx bx-plus"></i></a>
-                                    <a href="{{ $portfolio->slug ?? 'javascript:0' }}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                                    <a href="{{  url('/portfolio/'.$portfolio->slug) }}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                                 </div>
                             </div>
                         @endforeach

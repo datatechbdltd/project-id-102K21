@@ -51,3 +51,34 @@
 
 <!--====== AJAX ======-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<style>
+    #hero{
+        background-color: red;
+    }
+    #header{
+        background-color: green;
+    }
+    #header.header-scrolled{
+        background-color: #3b8383;
+    }
+    .section-title h2{
+        color: #0ce5e5;
+    }
+    .team .member h4{
+        color: #0ce5e5;
+    }
+    .skills .content h3{
+        color: #0ce5e5;
+    }
+    .skills .progress-bar{
+        background-color: #0ce5e5;
+    }
+    .services .icon-box h4 a{
+        color: #0ce5e5;
+    }
+    .contact .info h4{
+        color: #0ce5e5;
+    }
+</style>

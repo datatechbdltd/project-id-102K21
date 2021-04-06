@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     @include('layouts.frontend.includes.head')
 </head>

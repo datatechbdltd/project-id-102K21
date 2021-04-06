@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CallToAction;
+use App\Models\CustomPage;
 use App\Models\Faq;
 use App\Models\HomeContent;
 use App\Models\Partner;
@@ -25,6 +26,16 @@ class FrontendController extends Controller
         $callToActions = CallToAction::all();
         $portfolioCategories = PortfolioCategory::all();
         return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions', 'portfolioCategories'));
+    }
+
+    public function portfolio($slug){
+        $portfolio = Portfolio::where('slug', $slug)->first();
+        return view('frontend.portfolio', compact('portfolio'));
+    }
+
+    public function page($slug){
+        $page = CustomPage::where('slug', $slug)->first();
+        return view('frontend.page', compact('page'));
     }
 
     public function contactMessageStore(Request $request){
