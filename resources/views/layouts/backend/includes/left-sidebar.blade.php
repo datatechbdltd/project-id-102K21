@@ -91,6 +91,12 @@
                         <li><a href="{{ route('backend.service.create') }}">Service create </a></li>
                     </ul>
                 </li>
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Call to action</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.callToAction.index') }}">Call to action list </a></li>
+                        <li><a href="{{ route('backend.callToAction.create') }}">Call to action create </a></li>
+                    </ul>
+                </li>
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Portfolio</a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('backend.portfolio') }}">Portfolio </a></li>

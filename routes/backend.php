@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AboutController;
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\Backend\CallToActionController;
 use App\Http\Controllers\Backend\HomeContentController;
 use App\Http\Controllers\Backend\HomeContentFaqController;
 use App\Http\Controllers\Backend\PortfolioCategoryController;
@@ -46,6 +47,7 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::resource('homeContentFaq', HomeContentFaqController::class);
         Route::resource('strength', StrengthController::class);
         Route::resource('service', ServiceController::class);
+        Route::resource('callToAction', CallToActionController::class);
         Route::resource('portfolio', PortfolioController::class);
         Route::resource('portfolioCategory', PortfolioCategoryController::class);
         Route::resource('faq', FaqController::class);

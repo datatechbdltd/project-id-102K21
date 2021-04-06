@@ -25,7 +25,8 @@ class BlogController extends Controller
                 ->addColumn('writer', function($data) {
                     if($data->writer)
                         return '<span class="badge badge-pill badge-success">'.$data->writer->name.'</span>';
-                })->addColumn('status', function($data) {
+                })
+                ->addColumn('status', function($data) {
                     if($data->is_active == true){
                         return '<span class="badge badge-pill badge-success">Active</span>';
                     }else{

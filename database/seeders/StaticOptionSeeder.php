@@ -65,6 +65,8 @@ class StaticOptionSeeder extends Seeder
         set_static_option('service_title', 'SERVICES');
         set_static_option('service_description', 'Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.');
 
+        set_static_option('call_to_action_background_image', null);
+
         set_static_option('portfolio_title', 'PORTFOLIO');
         set_static_option('portfolio_description', 'Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.');
 

@@ -126,7 +126,7 @@
                     <div class="col-xl-3 col-md-6 mb-4 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration }}00">
                         <div class="icon-box">
                             <div class="icon"><h1><b>{!! $service->icon !!}</b></h1></div>
-                            <h4><a href="">{{ $service->name }}</a></h4>
+                            <h4><a href="javascript:0">{{ $service->name }}</a></h4>
                             <p>{{ $service->description }}</p>
                         </div>
                     </div>
@@ -138,15 +138,20 @@
         <!-- ======= Cta Section ======= -->
         <section id="cta" class="cta">
             <div class="container" data-aos="zoom-in">
+                @foreach($callToActions as $callToAction)
                 <div class="row">
                     <div class="col-lg-9 text-center text-lg-start">
-                        <h3>Call To Action</h3>
-                        <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <h3>{{ $callToAction->title }}</h3>
+                        <p>
+                            {!! $callToAction->description !!}
+                        </p>
                     </div>
                     <div class="col-lg-3 cta-btn-container text-center">
-                        <a class="cta-btn align-middle" href="#">Call To Action</a>
+                        <a class="cta-btn align-middle" target="_blank" href="{{ $callToAction->action_url ?? 'javascript:0' }}">{{ $callToAction->action_name }}</a>
                     </div>
                 </div>
+                <hr class="bg-danger">
+                @endforeach
             </div>
         </section><!-- End Cta Section -->
 

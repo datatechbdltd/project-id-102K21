@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CallToAction;
 use App\Models\Faq;
 use App\Models\HomeContent;
 use App\Models\Partner;
@@ -19,7 +20,8 @@ class FrontendController extends Controller
         $strengths = Strength::all();
         $services = Service::all();
         $faqs = Faq::all();
-        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs'));
+        $callToActions = CallToAction::all();
+        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions'));
     }
 
     public function contactMessageStore(Request $request){
