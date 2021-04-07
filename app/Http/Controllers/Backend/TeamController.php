@@ -120,7 +120,38 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'image' => 'nullable|image',
+            'designation' => 'nullable|string',
+            'note' => 'nullable|string',
+            'twitter' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'instagram' => 'nullable|string',
+            'linkedin' => 'nullable|string'
+        ]);
+        
+        $team->name    =  $request->name;
+        $team->designation    =  $request->designation;
+        $team->note    =  $request->note;
+        $team->twitter    =  $request->twitter;
+        $team->facebook    =  $request->facebook;
+        $team->instagram    =  $request->instagram;
+        $team->linkedin    =  $request->linkedin;
+        if ($request->hasFile('image')) {
+            $image             = $request->file('image');
+            $folder_path       = 'uploads/images/gallery/';
+            $image_new_name    = Str::random(20) . '-' . now()->timestamp . '.' . $image->getClientOriginalExtension();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path . $image_new_name);
+            $team->image   = $folder_path . $image_new_name;
+        }
+        try {
+            $team->save();
+            return back()->withToastSuccess('Successfully saved.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
     }
 
     /**
