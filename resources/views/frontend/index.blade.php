@@ -196,7 +196,7 @@
                 <div class="row">
                     @foreach($teams as $team)
                     <div class="col-lg-6">
-                        <div class="member d-flex align-items-start mb-3" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="member d-flex align-items-start mb-3" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration }}00">
                             <div class="pic"><img src="{{ asset('assets/frontend/img/team/team-1.jpg') }}" class="img-fluid" alt=""></div>
                             <div class="member-info">
                                 <h4>{{ $team->name }}</h4>
