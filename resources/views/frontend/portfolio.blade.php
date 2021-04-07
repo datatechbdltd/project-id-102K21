@@ -1,4 +1,5 @@
 @extends('layouts.frontend.app')
+@push('title') Portfolio @endpush
 @section('content')
     <section id="hero" class="d-flex align-items-center" style="height: 350px">
         <div class="container">
