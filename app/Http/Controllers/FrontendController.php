@@ -11,6 +11,7 @@ use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
 use App\Models\Service;
 use App\Models\Strength;
+use App\Models\Team;
 use App\Models\WebsiteMessage;
 use App\Models\WebsiteSubscribe;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class FrontendController extends Controller
         $faqs = Faq::all();
         $callToActions = CallToAction::all();
         $portfolioCategories = PortfolioCategory::all();
-        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions', 'portfolioCategories'));
+        $teams = Team::all();
+        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions', 'portfolioCategories', 'teams'));
     }
 
     public function portfolio($slug){

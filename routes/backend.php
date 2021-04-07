@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\PortfolioCategoryController;
 use App\Http\Controllers\Backend\PortfolioController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\StrengthController;
+use App\Http\Controllers\Backend\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CustomPageController;
@@ -43,6 +44,9 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::get('/faq-page', [FaqController::class, 'faq'])->name('faq');
         Route::post('/faq/update', [FaqController::class, 'faqUpdate'])->name('faqUpdate');
 
+        Route::get('/team-page', [TeamController::class, 'team'])->name('team');
+        Route::post('/team/update', [TeamController::class, 'teamUpdate'])->name('teamUpdate');
+
         Route::resource('homeContent', HomeContentController::class);
         Route::resource('homeContentFaq', HomeContentFaqController::class);
         Route::resource('strength', StrengthController::class);
@@ -50,6 +54,7 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::resource('callToAction', CallToActionController::class);
         Route::resource('portfolio', PortfolioController::class);
         Route::resource('portfolioCategory', PortfolioCategoryController::class);
+        Route::resource('team', TeamController::class);
         Route::resource('faq', FaqController::class);
         Route::resource('blog', BlogController::class);
         Route::resource('gallery', GalleryController::class);
