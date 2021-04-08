@@ -172,11 +172,11 @@
                     @foreach($portfolioCategories as $portfolioCategory)
                         @foreach($portfolioCategory->portfolios as $portfolio)
                             <div class="col-lg-4 col-md-6 portfolio-item filter-{{ $portfolioCategory->id }}">
-                                <div class="portfolio-img"><img src="{{ asset($portfolio->images->first() ?? get_static_option('no_image')) }}" class="img-fluid" alt=""></div>
+                                <div class="portfolio-img"><img src="{{ asset($portfolio->images->first()->image ?? get_static_option('no_image')) }}" class="img-fluid" alt=""></div>
                                 <div class="portfolio-info">
                                     <h4>{{ $portfolio->short_title }}</h4>
                                     <p>{{ $portfolioCategory->name }}</p>
-                                    <a href="{{ asset($portfolio->images->first() ?? get_static_option('no_image')) }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ $portfolio->name }}"><i class="bx bx-plus"></i></a>
+                                    <a href="{{ asset($portfolio->images->first()->image ?? get_static_option('no_image')) }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ $portfolio->name }}"><i class="bx bx-plus"></i></a>
                                     <a href="{{  url('/portfolio/'.$portfolio->slug) }}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                                 </div>
                             </div>
