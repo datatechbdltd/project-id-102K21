@@ -42,6 +42,7 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::post('/portfolio/update', [PortfolioController::class, 'portfolioUpdate'])->name('portfolioUpdate');
         Route::patch('/portfolio/add-image/{portfolio}', [PortfolioController::class, 'addPortfolioImages'])->name('addPortfolioImages');
         Route::post('/portfolio/remove-image', [PortfolioController::class, 'removePortfolioImages'])->name('removePortfolioImages');
+        Route::post('/portfolio/images', [PortfolioController::class, 'getPortfolioImages'])->name('getPortfolioImages');
 
         Route::get('/faq-page', [FaqController::class, 'faq'])->name('faq');
         Route::post('/faq/update', [FaqController::class, 'faqUpdate'])->name('faqUpdate');

@@ -211,8 +211,7 @@ class PortfolioController extends Controller
         }
     }
 
-    public function addPortfolioImages(Request $request, Portfolio $portfolio)
-    {
+    public function addPortfolioImages(Request $request, Portfolio $portfolio){
         $request->validate([
             'file' => 'required',
         ]);
@@ -232,20 +231,6 @@ class PortfolioController extends Controller
             $portfolio_image->portfolio_id = $portfolio->id;
             $portfolio_image->image = $folder_path . $image_new_name;
         }
-
-//        if($request->hasFile('file')){
-//            $image             = $request->file('file');
-//            $folder_path       = 'uploads/images/portfolio/';
-//            if (!file_exists($folder_path)) {
-//                mkdir($folder_path, 0755, true);
-//            }
-//            Image::make($image->getRealPath())->save($folder_path.$request->file('file').$image->getClientOriginalExtension());
-//
-//            $portfolio_image = new PortfolioImage();
-//            $portfolio_image->portfolio_id = $portfolio->id;
-//            $portfolio_image->image = $folder_path . $request->file('file').$image->getClientOriginalExtension();
-//        }
-
         try {
             $portfolio_image->save();
             return back()->withToastSuccess('Successfully saved.');
@@ -254,15 +239,13 @@ class PortfolioController extends Controller
         }
     }
 
-    public function removePortfolioImages(Request $request)
-    {
+    public function removePortfolioImages(Request $request){
         $request->validate([
             'portfolio' => 'required|exists:portfolios,id',
             'image' => 'required',
         ]);
-
         try {
-            $image       = 'uploads/images/portfolio/'.$request->image;
+            $image       = $request->image;
             $portfolio = PortfolioImage::where('image', $image)->where('portfolio_id', $request->portfolio)->first();
             if ($portfolio->image != null)
                 File::delete(public_path($portfolio->image)); //Old image delete
@@ -277,5 +260,12 @@ class PortfolioController extends Controller
                 'message' => $exception->getMessage(),
             ]);
         }
+    }
+
+    public function getPortfolioImages(Request $request){
+        $request->validate([
+            'portfolio' => 'required|exists:portfolios,id',
+        ]);
+        return Portfolio::findOrFail($request->portfolio)->images;
     }
 }

@@ -9,8 +9,8 @@
         #dropzone .message {
             font-family: "Segoe UI Light", "Arial", serif;
             font-weight: 600;
-            color: #0087F7;
-            font-size: 1.5em;
+            color: #ec2209;
+            font-size: 2.5em;
             letter-spacing: 0.05em;
         }
 
@@ -18,7 +18,7 @@
             border: 2px dashed #0087F7;
             background: white;
             border-radius: 5px;
-            min-height: 300px;
+            min-height: 200px;
             padding: 90px 0;
             vertical-align: baseline;
         }
@@ -116,24 +116,13 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="image" class="col-sm-4 col-form-label">Image</label>
-                            <div class="col-12">
-                                @foreach ($portfolio->images as $image)
-                                    <img src="{{ $image->image }}" width="70px;" height="70px;" class="rounded-circle" alt="">
-                                @endforeach
-                                <input name="image" type="file" accept="image/*" class="form-control" id="image">
-                                @error('image')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="col-12 text-center">
                             <button id="submit-btn" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </form>
-                <hr class="bg-danger">
+                <br>
+                <hr class="bg-danger mb-3">
                 <form method="post" action="{{ route('backend.addPortfolioImages', $portfolio) }}" enctype="multipart/form-data"
                       class="dropzone" id="dropzone">
                     @csrf
@@ -141,7 +130,7 @@
                     <div class="dz-message">
                         <div class="col-xs-8">
                             <div class="message">
-                                <p>Drop files here or Click to Upload</p>
+                                <p>Drop images here or Click to Upload</p>
                             </div>
                         </div>
                     </div>
@@ -157,7 +146,7 @@
 
 @endpush
 @push('summer-note')
-    <script>
+    <script type="text/javascript">
         $('.description').summernote({
             placeholder: 'Write a description ....',
             tabsize: 2,
@@ -173,20 +162,45 @@
             ]
         });
 
-
         Dropzone.options.dropzone =
             {
+                init: function() {
+                    myDropzone = this;
+                    var portfolio = {{ $portfolio->id }}
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        url: '{{ route('backend.getPortfolioImages') }}',
+                        type: 'POST',
+                        data: {portfolio: portfolio},
+                        dataType: 'json',
+                        success: function(response){
+                            $.each(response, function(key,value) {
+                                console.log(value.image)
+                                var mockFile = { name: value.image, size: value.size};
+                                myDropzone.displayExistingFile(mockFile, location.protocol + '//' + location.host + '/' + value.image);
+                            });
+                        }
+                    });
+                },
+
                 maxFilesize: 12,
                 renameFile: function (file) {
                     var dt = new Date();
                     var time = dt.getTime();
                     return time + file.name;
                 },
-                acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                acceptedFiles: ".jpeg,.jpg,.png",
                 addRemoveLinks: true,
                 timeout: 50000,
+
                 removedfile: function (file) {
-                    var image = file.upload.filename;
+                    if (file.upload){
+                        var image = 'uploads/images/portfolio/'+file.upload.filename;
+                    }else{
+                        var image = file.name;
+                    }
+                    console.log(file);
+                    console.log(image);
                     var portfolio = {{ $portfolio->id }};
                     Swal.fire({
                         title: 'Are you sure?',
@@ -230,9 +244,9 @@
                         var fileRef;
                         return (fileRef = file.previewElement) != null ?
                             fileRef.parentNode.removeChild(file.previewElement) : void 0;
-                    }
+                        }
                     });
-                }
+                },
             };
     </script>
 @endpush
