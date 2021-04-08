@@ -130,7 +130,7 @@ class TeamController extends Controller
             'instagram' => 'nullable|string',
             'linkedin' => 'nullable|string'
         ]);
-        
+
         $team->name    =  $request->name;
         $team->designation    =  $request->designation;
         $team->note    =  $request->note;

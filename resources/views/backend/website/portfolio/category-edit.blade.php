@@ -3,12 +3,7 @@
 @endpush
 @extends('layouts.backend.app')
 @push('style')
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
-    <style>
-        select {
-            font-family: 'FontAwesome', 'Second Font name'
-        }
-    </style>
+
 @endpush
 @section('breadcrumb')
     <div class="row page-titles">

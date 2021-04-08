@@ -3,10 +3,24 @@
 @endpush
 @extends('layouts.backend.app')
 @push('style')
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/dropzone-5.9.2/dropzone.css') }}" />
+    <script src="{{ asset('assets/dropzone-5.9.2/dropzone.js') }}"></script>
     <style>
-        select {
-            font-family: 'FontAwesome', 'Second Font name'
+        #dropzone .message {
+            font-family: "Segoe UI Light", "Arial", serif;
+            font-weight: 600;
+            color: #0087F7;
+            font-size: 1.5em;
+            letter-spacing: 0.05em;
+        }
+
+        .dropzone {
+            border: 2px dashed #0087F7;
+            background: white;
+            border-radius: 5px;
+            min-height: 300px;
+            padding: 90px 0;
+            vertical-align: baseline;
         }
     </style>
 @endpush
@@ -87,7 +101,7 @@
                         <div class="form-group row">
                             <label for="short_description" class="col-sm-4 col-form-label">Short description</label>
                             <div class="col-12">
-                                <textarea name="short_description" type="text" class="form-control" id="short_description">{!! $portfolio->short_description !!}</textarea>
+                                <textarea name="short_description" type="text" class="form-control description" id="short_description">{!! $portfolio->short_description !!}</textarea>
                                 @error('short_description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -96,7 +110,7 @@
                         <div class="form-group row">
                             <label for="long_description" class="col-sm-4 col-form-label">Long description</label>
                             <div class="col-12">
-                                <textarea name="long_description" type="text" class="form-control" id="long_description">{!! $portfolio->long_description !!}</textarea>
+                                <textarea name="long_description" type="text" class="form-control description" id="long_description">{!! $portfolio->long_description !!}</textarea>
                                 @error('long_description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -105,7 +119,7 @@
                         <div class="form-group row">
                             <label for="image" class="col-sm-4 col-form-label">Image</label>
                             <div class="col-12">
-                                @foreach ($portfolio->image as $image)
+                                @foreach ($portfolio->images as $image)
                                     <img src="{{ $image->image }}" width="70px;" height="70px;" class="rounded-circle" alt="">
                                 @endforeach
                                 <input name="image" type="file" accept="image/*" class="form-control" id="image">
@@ -116,6 +130,19 @@
                         </div>
                         <div class="col-12 text-center">
                             <button id="submit-btn" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+                <hr class="bg-danger">
+                <form method="post" action="{{ route('backend.addPortfolioImages', $portfolio) }}" enctype="multipart/form-data"
+                      class="dropzone" id="dropzone">
+                    @csrf
+                    @method('PATCH')
+                    <div class="dz-message">
+                        <div class="col-xs-8">
+                            <div class="message">
+                                <p>Drop files here or Click to Upload</p>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -131,8 +158,8 @@
 @endpush
 @push('summer-note')
     <script>
-        $('#short_description').summernote({
-            placeholder: 'Short description ....',
+        $('.description').summernote({
+            placeholder: 'Write a description ....',
             tabsize: 2,
             height: 300,
             toolbar: [
@@ -145,20 +172,68 @@
                 ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
-        $('#long_description').summernote({
-            placeholder: 'Long description ....',
-            tabsize: 2,
-            height: 300,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
+
+
+        Dropzone.options.dropzone =
+            {
+                maxFilesize: 12,
+                renameFile: function (file) {
+                    var dt = new Date();
+                    var time = dt.getTime();
+                    return time + file.name;
+                },
+                acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                addRemoveLinks: true,
+                timeout: 50000,
+                removedfile: function (file) {
+                    var image = file.upload.filename;
+                    var portfolio = {{ $portfolio->id }};
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                       if (result.isConfirmed) {
+                        $.ajax({
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            type: 'POST',
+                            url: '{{ route("backend.removePortfolioImages") }}',
+                            data: {image: image, portfolio: portfolio},
+                            success: function (data) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted. '+data.message,
+                                    'success'
+                                )
+                            },
+                            error: function (xhr) {
+                                var errorMessage = '<div class="card bg-danger">\n' +
+                                    '                        <div class="card-body text-center p-5">\n' +
+                                    '                            <span class="text-white">';
+                                $.each(xhr.responseJSON.errors, function(key,value) {
+                                    errorMessage +=(''+value+'<br>');
+                                });
+                                errorMessage +='</span>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>';
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    footer: errorMessage
+                                });
+                            },
+                        });
+                        var fileRef;
+                        return (fileRef = file.previewElement) != null ?
+                            fileRef.parentNode.removeChild(file.previewElement) : void 0;
+                    }
+                    });
+                }
+            };
     </script>
 @endpush
 

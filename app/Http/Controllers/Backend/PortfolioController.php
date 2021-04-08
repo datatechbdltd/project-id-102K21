@@ -26,7 +26,7 @@ class PortfolioController extends Controller
             return datatables::of($data)
                 ->addColumn('image', function($data) {
                     $html ="";
-                    foreach($data->image as $image){
+                    foreach($data->images as $image){
                         $html .='<img class="rounded-circle" height="70px;" width="70px;" src="'.$image->image.'" /><br>';
                     }
                     return $html;
@@ -85,21 +85,27 @@ class PortfolioController extends Controller
         $portfolio->long_description    =  $request->long_description;
         $portfolio->category_id    =  $request->category;
         $portfolio->slug    =  Str::slug($request->short_title, '-');
-
-//        if($request->hasFile('image')){
-//            $image             = $request->file('image');
-//            $folder_path       = 'uploads/images/portfolio/';
-//            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
-//            //resize and save to server
-//            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
-//
-//            $portfolio_image = new PortfolioImage();
-//            $portfolio_image->portfolio_id = $portfolio->id;
-//            $portfolio_image->image = $folder_path . $image_new_name;
-//            $portfolio_image->save();
-//        }
         try {
             $portfolio->save();
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+        if($request->hasFile('image')){
+            $image             = $request->file('image');
+            $folder_path       = 'uploads/images/portfolio/';
+            if (!file_exists($folder_path)) {
+                mkdir($folder_path, 0755, true);
+            }
+            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
+
+            $portfolio_image = new PortfolioImage();
+            $portfolio_image->portfolio_id = $portfolio->id;
+            $portfolio_image->image = $folder_path . $image_new_name;
+        }
+        try {
+            $portfolio_image->save();
             return back()->withToastSuccess('Successfully saved.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
@@ -145,7 +151,6 @@ class PortfolioController extends Controller
             'long_description' => 'required|string',
             'status' => 'required',
             'category' => 'required|exists:portfolio_categories,id',
-            'image' => 'nullable|image',
         ]);
 
         $portfolio->short_title    =   $request->short_title ;
@@ -154,23 +159,9 @@ class PortfolioController extends Controller
         $portfolio->short_description    =  $request->short_description;
         $portfolio->long_description    =  $request->long_description;
         $portfolio->category_id    =  $request->category;
-        $portfolio->slug    =  $request->short_title.time().'-'.Str::random(12);
-        $portfolio->save();
 
-        if($request->hasFile('image')){
-
-            $image             = $request->file('image');
-            $folder_path       = 'uploads/images/portfolio/';
-            $image_new_name    = Str::random(20).'-'.now()->timestamp.'.'.$image->getClientOriginalExtension();
-            //resize and save to server
-            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
-
-            $portfolio_image = new PortfolioImage();
-            $portfolio_image->portfolio_id = $portfolio->id;
-            $portfolio_image->image = $folder_path . $image_new_name;
-            $portfolio_image->save();
-        }
         try {
+            $portfolio->save();
             return back()->withToastSuccess('Successfully saved.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
@@ -217,6 +208,74 @@ class PortfolioController extends Controller
             return back()->withToastSuccess('Successfully updated.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+    }
+
+    public function addPortfolioImages(Request $request, Portfolio $portfolio)
+    {
+        $request->validate([
+            'file' => 'required',
+        ]);
+        $portfolio_image = new PortfolioImage();
+
+        if($request->hasFile('file')){
+            $image             = $request->file('file');
+            $folder_path       = 'uploads/images/portfolio/';
+            if (!file_exists($folder_path)) {
+                mkdir($folder_path, 0755, true);
+            }
+            $image_new_name    = $image->getClientOriginalName();
+            //resize and save to server
+            Image::make($image->getRealPath())->save($folder_path.$image_new_name);
+
+
+            $portfolio_image->portfolio_id = $portfolio->id;
+            $portfolio_image->image = $folder_path . $image_new_name;
+        }
+
+//        if($request->hasFile('file')){
+//            $image             = $request->file('file');
+//            $folder_path       = 'uploads/images/portfolio/';
+//            if (!file_exists($folder_path)) {
+//                mkdir($folder_path, 0755, true);
+//            }
+//            Image::make($image->getRealPath())->save($folder_path.$request->file('file').$image->getClientOriginalExtension());
+//
+//            $portfolio_image = new PortfolioImage();
+//            $portfolio_image->portfolio_id = $portfolio->id;
+//            $portfolio_image->image = $folder_path . $request->file('file').$image->getClientOriginalExtension();
+//        }
+
+        try {
+            $portfolio_image->save();
+            return back()->withToastSuccess('Successfully saved.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+    }
+
+    public function removePortfolioImages(Request $request)
+    {
+        $request->validate([
+            'portfolio' => 'required|exists:portfolios,id',
+            'image' => 'required',
+        ]);
+
+        try {
+            $image       = 'uploads/images/portfolio/'.$request->image;
+            $portfolio = PortfolioImage::where('image', $image)->where('portfolio_id', $request->portfolio)->first();
+            if ($portfolio->image != null)
+                File::delete(public_path($portfolio->image)); //Old image delete
+            $portfolio->delete();
+            return response()->json([
+                'type' => 'success',
+                'message' => '',
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'type' => 'error',
+                'message' => $exception->getMessage(),
+            ]);
         }
     }
 }
