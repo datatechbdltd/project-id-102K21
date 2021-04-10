@@ -22,7 +22,6 @@ class StaticOptionSeeder extends Seeder
         set_static_option('backend_text_light_logo', null);
         set_static_option('breadcrumb_image', null);
 
-
         set_static_option('company_email', 'company@gmail.com');
         set_static_option('company_phone', '01234567890');
         set_static_option('company_address', 'company---adddress');
@@ -84,7 +83,5 @@ class StaticOptionSeeder extends Seeder
 
         set_static_option('subscriber_title', 'JOIN OUR NEWSLETTER');
         set_static_option('subscriber_description','Tamen quem nulla quae legam multos aute sint culpa legam noster magna');
-
-
     }
 }

@@ -47,7 +47,7 @@ class CustomPageController extends Controller
 
         $customPage = new CustomPage();
         $customPage->name   =   $request->name;
-        $customPage->slug   =   Str::slug($request->name, '-').'-'.time();
+        $customPage->slug   =   Str::slug($request->name, '-');
         $customPage->title  =   $request->title;
         $customPage->title  =   $request->title;
         $customPage->status =   $request->status;
@@ -97,7 +97,7 @@ class CustomPageController extends Controller
             'description'   =>  'required',
         ]);
         $customPage->name   =   $request->name;
-        $customPage->slug   =   Str::slug($request->name, '-').'-'.time();
+        $customPage->slug   =   Str::slug($request->name, '-');
         $customPage->title  =   $request->title;
         $customPage->status =   $request->status;
         $customPage->description    =   $request->description;

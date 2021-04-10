@@ -20,7 +20,7 @@ class CustomPageSeeder extends Seeder
         $customPage->name = 'Terms & Conditions';
         $customPage->title = 'Terms & Conditions';
         $customPage->description = 'Terms & Conditions --- description';
-        $customPage->slug = Str::slug('Terms & Conditions-').'-'.time();
+        $customPage->slug = Str::slug('Terms & Conditions');
         $customPage->serial = 1;
         $customPage->save();
 
@@ -29,8 +29,8 @@ class CustomPageSeeder extends Seeder
         $customPage->name = 'Privacy & policy';
         $customPage->title = 'Privacy & policy';
         $customPage->description = 'Privacy & policy --- description';
-        $customPage->slug = Str::slug('Privacy & policy-').'-'.time();
-        $customPage->serial = 1;
+        $customPage->slug = Str::slug('Privacy & policy');
+        $customPage->serial = 2;
         $customPage->save();
     }
 }
