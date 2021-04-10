@@ -106,18 +106,25 @@
                         <li><a href="{{ route('backend.portfolioCategory.create') }}">Category create </a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Faq</a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="{{ route('backend.faq') }}">Faq </a></li>
-                        <li><a href="{{ route('backend.faq.index') }}">Faq list </a></li>
-                        <li><a href="{{ route('backend.faq.create') }}">Faq create </a></li>
-                    </ul>
-                </li>
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Team</a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('backend.team') }}">Team </a></li>
                         <li><a href="{{ route('backend.team.index') }}">Team list </a></li>
                         <li><a href="{{ route('backend.team.create') }}">Team create </a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Price</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.price') }}">Price </a></li>
+                        <li><a href="{{ route('backend.price.index') }}">Price list </a></li>
+                        <li><a href="{{ route('backend.price.create') }}">Price create </a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Faq</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.faq') }}">Faq </a></li>
+                        <li><a href="{{ route('backend.faq.index') }}">Faq list </a></li>
+                        <li><a href="{{ route('backend.faq.create') }}">Faq create </a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Blog</a>

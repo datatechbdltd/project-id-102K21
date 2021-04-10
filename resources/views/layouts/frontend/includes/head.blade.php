@@ -41,6 +41,9 @@
 <!-- Template Main CSS File -->
 <link href="{{ asset('assets/frontend/css/style.css') }}" rel="stylesheet">
 
+<!-- Custom  CSS -->
+<link href="{{ asset('assets/helpers/helper.css') }}" rel="stylesheet">
+
 <!-- =======================================================
 * Template Name: Arsha - v4.1.0
 * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/

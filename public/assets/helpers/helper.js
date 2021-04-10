@@ -3,9 +3,7 @@
         // Get current page and set current in nav
         $("nav>ul").find("li").each(function() {
             var navItem = $(this);
-
             if (navItem.find("a").attr("href") == location.protocol + '//' + location.host + location.pathname) {
-
                 //This li active
                 //navItem.css( "background-color", "lightgreen" );
                 //Auto 1 active of Parent/Children
@@ -93,54 +91,22 @@
             })
         });
 
-        // // subscribe now
-        $('.subscribe-now-btn').click(function (){
-            $.ajax({
-                method: 'POST',
-                url: "/subscribe/store",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: { email:  $('#subscribe-email').val()},
-                dataType: 'JSON',
-                beforeSend: function (){
-                    $(".subscribe-now-btn").prop("disabled",true);
-                },
-                complete: function (){
-                    $(".subscribe-now-btn").prop("disabled",false);
-                },
-                success: function (response) {
-                    if (response.type == 'success'){
-                        $('#subscribe-email').val("");
-                        Swal.fire(
-                            'Thank you !',
-                            response.message,
-                            'success'
-                        )
-                    }else{
-                        Swal.fire(
-                            'Sorry !',
-                            response.message,
-                            response.type
-                        )
-                    }
-                },
-                error: function (xhr) {
-                    var errorMessage = '<div class="card bg-danger">\n' +
-                        '                        <div class="card-body text-center p-5">\n' +
-                        '                            <span class="text-white">';
-                    $.each(xhr.responseJSON.errors, function(key,value) {
-                        errorMessage +=(''+value+'<br>');
-                    });
-                    errorMessage +='</span>\n' +
-                        '                        </div>\n' +
-                        '                    </div>';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        footer: errorMessage
-                    })
-                },
-            })
+        // select all check box
+        $('.select-all').click(function(event) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = true;
+            }
         });
+
+        // un select all check box
+        $('.un-select-all').click(function(event) {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = false;
+            }
+        });
+
 
         //Chose image
         $(".image-chose-btn").click(function (){
@@ -159,10 +125,9 @@
             $(this).parent().find('.image-display').attr("src",$(this).val());
             $(this).parent().find('.image-importer').val('');
         })
-        //Reset image
 
+        //Submit image
         $(".image-submit-btn").click(function (){
-            // alert($(this).val());
             var url = $(this).val();
             var formData = new FormData();
             var this_btn = $(this);
@@ -217,6 +182,123 @@
                     },
             })
         })
+
+        //contact-form-submit
+        $(".send-message-button").click(function (){
+            var this_btn = $(this);
+            var button_text = $(this).text();
+            var formData = new FormData();
+            formData.append('name', $('#contact-form').find('#name').val())
+            formData.append('email', $('#contact-form').find('#email').val())
+            formData.append('phone', $('#contact-form').find('#phone').val())
+            formData.append('subject', $('#contact-form').find('#subject').val())
+            formData.append('message', $('#contact-form').find('#message').val())
+            $.ajax({
+                method: 'POST',
+                url: "/contact-message-store",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    this_btn.prop("disabled",true);
+                    this_btn.text("Please wait ...");
+                },
+                complete: function (){
+                    this_btn.prop("disabled",false);
+                    this_btn.text(button_text);
+                },
+                success: function (data) {
+                    if (data.type == 'success'){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: data.type,
+                            title: data.message,
+                            timer: 1500
+                        });
+                        setTimeout(function () {
+                            $('#contact-form').trigger("reset");
+                        }, 800);
+                    }else{
+                        Swal.fire({
+                            icon: data.type,
+                            title: 'Oops...',
+                            text: data.message,
+                            footer: 'Something went wrong!'
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    var errorMessage = '<div class="card bg-danger">\n' +
+                        '                        <div class="card-body text-center p-5">\n' +
+                        '                            <span class="text-white">';
+                    $.each(xhr.responseJSON.errors, function(key,value) {
+                        errorMessage +=(''+value+'<br>');
+                    });
+                    errorMessage +='</span>\n' +
+                        '                        </div>\n' +
+                        '                    </div>';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        footer: errorMessage
+                    });
+                },
+            });
+        })
+
+        // subscribe now
+        $('.subscribe-now-btn').click(function (){
+            var this_btn = $(this);
+            var button_text = $(this).val();
+            $.ajax({
+                method: 'POST',
+                url: "/subscribe/store",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: { email:  $('#subscribe-email').val()},
+                dataType: 'JSON',
+                beforeSend: function() {
+                    this_btn.prop("disabled",true);
+                    this_btn.val("Please wait ...");
+                },
+                complete: function (){
+                    this_btn.prop("disabled",false);
+                    this_btn.val(button_text);
+                },
+                success: function (response) {
+                    if (response.type == 'success'){
+                        $('#subscribe-email').val("");
+                        Swal.fire(
+                            'Thank you !',
+                            response.message,
+                            'success'
+                        )
+                    }else{
+                        Swal.fire(
+                            'Sorry !',
+                            response.message,
+                            response.type
+                        )
+                    }
+                },
+                error: function (xhr) {
+                    var errorMessage = '<div class="card bg-danger">\n' +
+                        '                        <div class="card-body text-center p-5">\n' +
+                        '                            <span class="text-white">';
+                    $.each(xhr.responseJSON.errors, function(key,value) {
+                        errorMessage +=(''+value+'<br>');
+                    });
+                    errorMessage +='</span>\n' +
+                        '                        </div>\n' +
+                        '                    </div>';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        footer: errorMessage
+                    })
+                },
+            })
+        });
     });
 
 
@@ -266,76 +348,4 @@
         })
     }
 
-    // Listen for click on toggle checkbox
-    $('.select-all').click(function(event) {
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        for (var checkbox of checkboxes) {
-            checkbox.checked = true;
-        }
-    });
-
-    $('.un-select-all').click(function(event) {
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        for (var checkbox of checkboxes) {
-            checkbox.checked = false;
-        }
-    });
-
-
-
-    //contact-form-submit
-    $(document).ready(function(){
-        $(".send-message-button").click(function (){
-            var formData = new FormData();
-            formData.append('name', $('#contact-form').find('#name').val())
-            formData.append('email', $('#contact-form').find('#email').val())
-            formData.append('phone', $('#contact-form').find('#phone').val())
-            formData.append('subject', $('#contact-form').find('#subject').val())
-            formData.append('message', $('#contact-form').find('#message').val())
-            $.ajax({
-                method: 'POST',
-                url: "/contact-message-store",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    if (data.type == 'success'){
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: data.type,
-                            title: data.message,
-                            timer: 1500
-                        });
-                        setTimeout(function () {
-                            $('#contact-form').trigger("reset");
-                        }, 800);
-                    }else{
-                        Swal.fire({
-                            icon: data.type,
-                            title: 'Oops...',
-                            text: data.message,
-                            footer: 'Something went wrong!'
-                        });
-                    }
-                },
-                error: function (xhr) {
-                    var errorMessage = '<div class="card bg-danger">\n' +
-                        '                        <div class="card-body text-center p-5">\n' +
-                        '                            <span class="text-white">';
-                    $.each(xhr.responseJSON.errors, function(key,value) {
-                        errorMessage +=(''+value+'<br>');
-                    });
-                    errorMessage +='</span>\n' +
-                        '                        </div>\n' +
-                        '                    </div>';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        footer: errorMessage
-                    });
-                },
-            });
-        })
-    })
 

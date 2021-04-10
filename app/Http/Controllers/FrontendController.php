@@ -9,6 +9,7 @@ use App\Models\HomeContent;
 use App\Models\Partner;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
+use App\Models\Price;
 use App\Models\Service;
 use App\Models\Strength;
 use App\Models\Team;
@@ -27,7 +28,16 @@ class FrontendController extends Controller
         $callToActions = CallToAction::all();
         $portfolioCategories = PortfolioCategory::all();
         $teams = Team::all();
-        return view('frontend.index', compact('partners', 'home_contents', 'strengths', 'services', 'faqs', 'callToActions', 'portfolioCategories', 'teams'));
+        $prices = Price::all();
+        return view('frontend.index', compact('partners',
+            'home_contents',
+            'strengths',
+            'services',
+            'faqs',
+            'callToActions',
+            'portfolioCategories',
+            'teams',
+            'prices'));
     }
 
     public function portfolio($slug){
