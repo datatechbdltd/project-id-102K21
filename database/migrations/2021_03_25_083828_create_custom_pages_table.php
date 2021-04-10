@@ -15,7 +15,7 @@ class CreateCustomPagesTable extends Migration
     {
         Schema::create('custom_pages', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(0);
+            $table->boolean('is_active')->default(0);
             $table->string('name');
             $table->string('slug');
             $table->string('title')->nullable();

@@ -130,10 +130,12 @@ class PortfolioCategoryController extends Controller
             $portfolioCategory->delete();
             return response()->json([
                 'type' => 'success',
+                 'message' => ''
             ]);
         }catch (\Exception$exception){
             return response()->json([
                 'type' => 'error',
+                 'message' => ''
             ]);
         }
     }

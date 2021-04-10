@@ -10,7 +10,7 @@ class CustomPage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'status',
+        'is_active',
         'name',
         'slug',
         'title',

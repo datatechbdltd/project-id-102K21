@@ -148,10 +148,8 @@
 
                 <li><a href="javascript:void(0)" class="has-arrow"> <i class="ti-files"></i>Custom page</a>
                     <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.customPage.index') }}">Custom page List </a></li>
                         <li><a href="{{ route('backend.customPage.create') }}">Custom page create </a></li>
-                        @foreach(custom_pages() as $page)
-                            <li><a href="{{ route('backend.customPage.edit', $page) }}">{{ $page->name }}</a></li>
-                        @endforeach
                     </ul>
                 </li>
                 <hr class="bg-white">

@@ -1,5 +1,5 @@
 @push('title')
-    Custom page edit
+  Edit {{ $customPage->name }}
 @endpush
 @extends('layouts.backend.app')
 @push('style')
@@ -8,13 +8,13 @@
 @section('breadcrumb')
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h4 class="text-themecolor">Custom page edit</h4>
+            <h4 class="text-themecolor"><b>Edit </b> {{ $customPage->name }}</h4>
         </div>
         <div class="col-md-7 align-self-center text-right">
             <div class="d-flex justify-content-end align-items-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('backend.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Custom page edit</li>
+                    <li class="breadcrumb-item active"><b>Edit </b> {{ $customPage->name }}</li>
                 </ol>
                 <a href="{{ route('backend.customPage.index') }}" class="btn btn-info d-none d-lg-block m-l-15"><i class="fa fa-plus-circle"></i> Back to list</a>
             </div>
@@ -28,7 +28,7 @@
     <div class="row">
         <div class="card m-b-30 col-12 ">
             <div class="card-header bg-danger">
-                <h5 class="card-title">Custom page edit</h5>
+                <h5 class="card-title"><b>Edit </b> {{ $customPage->name }}</h5>
             </div>
             <div class="card-body">
                 <form class="row justify-content-center" method="POST" action="{{  route('backend.customPage.update', $customPage) }}" enctype="multipart/form-data">
