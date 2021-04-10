@@ -134,7 +134,7 @@ class CustomPageController extends Controller
      * @param CustomPage $customPage
      * @return \Illuminate\Http\JsonResponse
      */
-   CustomPage $customPage)
+    public function destroy(CustomPage $customPage)
     {
         if ($customPage->id == 1 || $customPage->id == 2){
             return response()->json([
@@ -146,10 +146,12 @@ class CustomPageController extends Controller
             $customPage->delete();
             return response()->json([
                 'type' => 'success',
+                'message' => ''
             ]);
         }catch (\Exception$exception){
             return response()->json([
                 'type' => 'error',
+                'message' => ''
             ]);
         }
     }

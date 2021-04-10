@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\CustomPage;
 use App\Models\GlobalImages;
 use App\Models\StaticOption;
-
+use App\Models\WebsiteMessage;
 
 
 if (!function_exists('random_code')){
@@ -70,12 +71,12 @@ if (!function_exists('random_code')){
         return true;
     }
 
-   function custom_pages(){
-       return \App\Models\CustomPage::orderBy('serial', 'asc')->get();
+   function active_custom_pages(){
+       return CustomPage::all();
    }
 
-   function website_incomplete_messages(){
-       return \App\Models\WebsiteMessage::where('is_process_complete', false)->count();
+   function count_of_website_incomplete_messages(){
+       return WebsiteMessage::where('is_process_complete', false)->count();
    }
 
 

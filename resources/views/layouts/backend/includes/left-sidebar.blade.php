@@ -59,7 +59,7 @@
                 </li>
                 <li>
                     <a class="waves-effect waves-dark" href="{{ route('backend.websiteMessage.index') }}">
-                        <i class="ti-files"></i><span class="hide-menu">Messages<span  class="badge badge-warning">{{ website_incomplete_messages() }}</span></span>
+                        <i class="ti-files"></i><span class="hide-menu">Messages<span  class="badge badge-warning">{{ count_of_website_incomplete_messages() }}</span></span>
                     </a>
                 </li>
 
