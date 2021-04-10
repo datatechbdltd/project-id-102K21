@@ -107,4 +107,19 @@ class SubscriberController extends Controller
             ]);
         }
     }
+
+    public function subscriberUpdate(Request $request){
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+        try {
+            update_static_option('subscriber_title', $request->title);
+            update_static_option('subscriber_description', $request->description);
+
+            return back()->withToastSuccess('Successfully updated.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+    }
 }

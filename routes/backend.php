@@ -54,6 +54,9 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::get('/faq-page', [FaqController::class, 'faq'])->name('faq');
         Route::post('/faq/update', [FaqController::class, 'faqUpdate'])->name('faqUpdate');
 
+        Route::post('/message/update', [WebsiteMessageController::class, 'messageUpdate'])->name('messageUpdate');
+        Route::post('/subscriber/update', [SubscriberController::class, 'subscriberUpdate'])->name('subscriberUpdate');
+
         Route::resource('homeContent', HomeContentController::class);
         Route::resource('homeContentFaq', HomeContentFaqController::class);
         Route::resource('strength', StrengthController::class);

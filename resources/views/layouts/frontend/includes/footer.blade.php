@@ -5,8 +5,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <h4>Join Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                    <h2>{{ get_static_option('subscriber_title') }}</h2>
+                    <p>
+                        {!! get_static_option('subscriber_description') !!}
+                    </p>
                     <form action="javascript:0" method="">
                         <input type="email"  id="subscribe-email"  name="email"><input class="subscribe-now-btn" type="submit" value="Subscribe">
                     </form>

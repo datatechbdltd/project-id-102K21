@@ -26,7 +26,7 @@
         <!-- Start row -->
         <div class="row">
             <!-- Start col -->
-            <div class="card m-b-30 col-12 ">
+            <div class="card m-b-30 col-12">
                 <div class="card-header bg-danger">
                     <h5 class="card-title text-white">Messages list</h5>
                 </div>
@@ -55,6 +55,43 @@
                             </tfoot>
                         </table>
                     </div>
+                </div>
+            </div>
+            <!-- End col -->
+            <!-- Start col -->
+            <div class="card m-b-30 col-12 mb-3">
+                <div class="card-header bg-info">
+                    <h5 class="card-title text-white">Messages</h5>
+                </div>
+                <div class="card-body">
+                    <form class="row justify-content-center" method="POST" action="{{ route('backend.messageUpdate') }}"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-lg-10">
+                            <div class="form-group row">
+                                <label for="title" class="col-sm-4 col-form-label">Title</label>
+                                <div class="col-12">
+                                    <textarea name="title" type="text" class="form-control" id="title">{{ get_static_option('message_title') }}</textarea>
+                                    @error('title')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-4 col-form-label">Description</label>
+                                <div class="col-12">
+                                    <textarea name="description" type="text" class="form-control" id="description">{!! get_static_option('message_description') !!}</textarea>
+                                    @error('description')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button id="submit-btn" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- End col -->
@@ -175,5 +212,21 @@
     </script>
 @endpush
 @push('summer-note')
-
+    <script>
+        $('#description').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 200,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
 @endpush
+

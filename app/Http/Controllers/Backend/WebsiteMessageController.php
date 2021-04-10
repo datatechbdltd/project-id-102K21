@@ -154,4 +154,19 @@ class WebsiteMessageController extends Controller
         Artisan::call('queue:work --once');
         return back()->withToastSuccess('Successfully mail sent to '.$request->email);
     }
+
+    public function messageUpdate(Request $request){
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required',
+        ]);
+        try {
+            update_static_option('message_title', $request->title);
+            update_static_option('message_description', $request->description);
+
+            return back()->withToastSuccess('Successfully updated.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+    }
 }
