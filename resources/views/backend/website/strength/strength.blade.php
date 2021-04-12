@@ -39,7 +39,7 @@
                                 <label for="image" class="col-sm-4 col-form-label">Image</label>
                                 <img height="70px;" width="70px;" class="rounded-circle" src="{{ asset(get_static_option('strength_image') ?? get_static_option('no_image')) }}" alt="">
                                 <div class="col-12">
-                                    <input name="image" type="file" class="form-control" id="image" value="{{ get_static_option('strength_image') }}">
+                                    <input name="image" type="file" accept="image/*" class="form-control" id="image" value="{{ get_static_option('strength_image') }}">
                                     @error('image')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror

@@ -44,7 +44,7 @@
                         <div class="form-group row">
                             <label for="image" class="col-sm-4 col-form-label">Image</label>
                             <div class="col-12">
-                                <input name="image" type="file" class="form-control" id="image" value="{{ old('image') }}">
+                                <input name="image" type="file" accept="image/*" class="form-control" id="image" value="{{ old('image') }}">
                             </div>
                         </div>
                         <div class="form-group row">
