@@ -12,9 +12,13 @@
                 <li><a class="nav-link scrollto" href="#about">About</a></li>
                 <li><a class="nav-link scrollto" href="#services">Services</a></li>
                 <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                <li><a class="nav-link scrollto" href="#team">Team</a></li>
                 <li class="dropdown"><a href="#"><span>More</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
+                        <li><a class="nav-link scrollto" href="#team">Team</a></li>
+                        <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+                        <li><a class="nav-link scrollto" href="#faq">FAQ</a></li>
+                        <li><a class="nav-link scrollto" href="#testimonial">Testimonial</a></li>
+                        <hr class="bg-success">
                         <li><a class="" href="{{ url('/blogs') }}">Blogs</a></li>
                         <li><a class="" href="{{ url('/gallery') }}">Gallery</a></li>
                     </ul>

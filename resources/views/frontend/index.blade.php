@@ -197,7 +197,7 @@
                     @foreach($teams as $team)
                     <div class="col-lg-6">
                         <div class="member d-flex align-items-start mb-3" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration }}00">
-                            <div class="pic"><img src="{{ asset('assets/frontend/img/team/team-1.jpg') }}" class="img-fluid" alt=""></div>
+                            <div class="pic"><img src="{{ asset($team->image ?? get_static_option('no_image')) }}" class="img-fluid" alt=""></div>
                             <div class="member-info">
                                 <h4>{{ $team->name }}</h4>
                                 <span>{{ $team->designation }}</span>
@@ -272,6 +272,32 @@
 
             </div>
         </section><!-- End Frequently Asked Questions Section -->
+
+        <!-- ======= Testimonial Section ======= -->
+        <section id="testimonial" class="testimonial team section-bg">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>{{ get_static_option('testimonial_title') }}</h2>
+                    <p>
+                        {!! get_static_option('testimonial_description') !!}
+                    </p>
+                </div>
+                <div class="row">
+                    @foreach($testimonials as $testimonial)
+                        <div class="col-lg-6">
+                            <div class="member d-flex align-items-start mb-3" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration }}00">
+                                <div class="pic"><img src="{{ asset($testimonial->writer_avatar ?? get_static_option('no_image')) }}" class="img-fluid" alt=""></div>
+                                <div class="member-info">
+                                    <h4>{{ $testimonial->writer_name }}</h4>
+                                    <span>{{ $testimonial->writer_designation }}</span>
+                                    <i>"{!! $testimonial->speech !!}"</i>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section><!-- Testimonial Section -->
 
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">

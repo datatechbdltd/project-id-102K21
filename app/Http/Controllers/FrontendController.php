@@ -15,6 +15,7 @@ use App\Models\Price;
 use App\Models\Service;
 use App\Models\Strength;
 use App\Models\Team;
+use App\Models\Testimonial;
 use App\Models\WebsiteMessage;
 use App\Models\WebsiteSubscribe;
 use Illuminate\Http\Request;
@@ -31,6 +32,7 @@ class FrontendController extends Controller
         $portfolioCategories = PortfolioCategory::all();
         $teams = Team::all();
         $prices = Price::all();
+        $testimonials = Testimonial::all();
         return view('frontend.index', compact('partners',
             'home_contents',
             'strengths',
@@ -39,7 +41,8 @@ class FrontendController extends Controller
             'callToActions',
             'portfolioCategories',
             'teams',
-            'prices'));
+            'prices',
+            'testimonials'));
     }
 
     public function gallery(){
