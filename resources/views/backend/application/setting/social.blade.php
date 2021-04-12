@@ -35,7 +35,6 @@
                         @csrf
                         <div class="form-body">
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Facebook link</label>
@@ -58,6 +57,12 @@
                                     <div class="form-group">
                                         <label class="control-label">Linkedin link</label>
                                         <input type="text" name="company_linkedin_link" id="company_linkedin_link" class="form-control" value="{{ get_static_option('company_linkedin_link') }}" placeholder="{{ get_static_option('company_linkedin_link') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Linkedin link</label>
+                                        <textarea name="note_for_social_network" id="" cols="10" rows="3" class="form-control">{{ get_static_option('note_for_social_network') }}</textarea>
                                     </div>
                                 </div>
                             </div>

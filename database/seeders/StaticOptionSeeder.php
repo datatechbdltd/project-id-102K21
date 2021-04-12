@@ -32,6 +32,8 @@ class StaticOptionSeeder extends Seeder
         set_static_option('company_instagram_link', 'https://www.instagram.com/');
         set_static_option('company_linkedin_link', 'https://www.linkedin.com/');
 
+        set_static_option('note_for_social_network', 'Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies');
+
         set_static_option('custom_head_code', null);
         set_static_option('custom_foot_code', null);
 
@@ -77,6 +79,9 @@ class StaticOptionSeeder extends Seeder
 
         set_static_option('faq_title', 'FREQUENTLY ASKED QUESTIONS');
         set_static_option('faq_description', 'Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.');
+
+        set_static_option('testimonial_title', 'TESTIMONIALS');
+        set_static_option('testimonial_description','Tamen quem nulla quae legam multos aute sint culpa legam noster magna');
 
         set_static_option('message_title', 'MESSAGE US');
         set_static_option('message_description', 'Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.');

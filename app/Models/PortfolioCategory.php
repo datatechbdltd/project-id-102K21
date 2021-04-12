@@ -15,6 +15,6 @@ class PortfolioCategory extends Model
 
     //portfolios
     public function portfolios(){
-        return $this->hasMany(Portfolio::class, 'category_id', 'id');
+        return $this->hasMany(Portfolio::class, 'category_id', 'id')->where('is_active', true);
     }
 }

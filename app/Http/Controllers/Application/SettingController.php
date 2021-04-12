@@ -138,19 +138,20 @@ class SettingController extends Controller
     // social Static Option Update
     public function socialStaticOptionUpdate(Request $request){
         $request->validate([
-            'company_facebook_link' => 'nullable|min:3',
-            'company_twitter_link' => 'nullable|min:3',
-            'company_youtube_link' => 'nullable|min:3',
-            'company_instagram_link' => 'nullable|min:3',
-            'company_linkedin_link' => 'nullable|min:3',
+            'company_facebook_link' => 'nullable|min:1',
+            'company_twitter_link' => 'nullable|min:1',
+            'company_youtube_link' => 'nullable|min:1',
+            'company_instagram_link' => 'nullable|min:1',
+            'company_linkedin_link' => 'nullable|min:1',
+            'note_for_social_network' => 'nullable|min:1',
         ]);
         try {
-
             update_static_option('company_facebook_link', $request->company_facebook_link);
             update_static_option('company_twitter_link', $request->company_twitter_link);
             update_static_option('company_youtube_link', $request->company_youtube_link);
             update_static_option('company_instagram_link', $request->company_instagram_link);
             update_static_option('company_linkedin_link', $request->company_linkedin_link);
+            update_static_option('note_for_social_network', $request->note_for_social_network);
         }catch (\Exception $exception){
             return back()->withErrors( 'Something went wrong !'.$exception->getMessage());
         }
