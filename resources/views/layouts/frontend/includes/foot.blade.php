@@ -6,13 +6,11 @@
 <script src="{{ asset('assets/frontend/vendor/php-email-form/validate.js') }}"></script>
 <script src="{{ asset('assets/frontend/vendor/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/vendor/waypoints/noframework.waypoints.js') }}"></script>
-
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
 <!-- End JS -->
 <script src="{{ asset('assets/helpers/helper.js') }}"></script>
-
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @include('sweetalert::alert')
+<!-- Page JS -->
 @stack('script')
-@stack('summer-note')

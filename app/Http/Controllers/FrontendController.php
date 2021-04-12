@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\CallToAction;
 use App\Models\CustomPage;
 use App\Models\Faq;
+use App\Models\Gallery;
 use App\Models\HomeContent;
 use App\Models\Partner;
 use App\Models\Portfolio;
@@ -40,6 +42,11 @@ class FrontendController extends Controller
             'prices'));
     }
 
+    public function gallery(){
+        $images = Gallery::all();
+        return view('frontend.gallery', compact('images'));
+    }
+
     public function portfolio($slug){
         $portfolio = Portfolio::where('slug', $slug)->first();
         return view('frontend.portfolio', compact('portfolio'));
@@ -48,6 +55,16 @@ class FrontendController extends Controller
     public function page($slug){
         $page = CustomPage::where('slug', $slug)->first();
         return view('frontend.page', compact('page'));
+    }
+
+    public function blogs(){
+        $blogs = Blog::where('is_active', true)->get();
+        return view('frontend.blogs', compact('blogs'));
+    }
+
+    public function blogDetail($slug){
+        $blog = Blog::where('slug', $slug)->first();
+        return view('frontend.blog-detail', compact('blog'));
     }
 
     public function contactMessageStore(Request $request){

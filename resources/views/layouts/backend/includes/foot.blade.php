@@ -1,3 +1,4 @@
+<!-- Summer note JS -->
 @stack('summer-note')
 <!-- Start JS -->
 <script src="{{ asset('assets/backend/node_modules/jquery/jquery-3.2.1.min.js') }}"></script>
@@ -28,6 +29,7 @@
 <script src="{{ asset('assets/helpers/helper.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @include('sweetalert::alert')
+<!-- Page JS -->
 @stack('script')
-@stack('summer-note')
+
 

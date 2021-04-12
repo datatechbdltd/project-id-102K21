@@ -35,7 +35,7 @@
                     <ul>
                         @foreach(active_custom_pages() as $custom_page)
                             @if($loop->odd)
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">{{ $custom_page->name }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/page', $custom_page->slug) }}">{{ $custom_page->name }}</a></li>
                             @endif
                         @endforeach
                     </ul>
@@ -46,7 +46,7 @@
                     <ul>
                         @foreach(active_custom_pages() as $custom_page)
                             @if($loop->even)
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">{{ $custom_page->name }}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/page', $custom_page->slug) }}">{{ $custom_page->name }}</a></li>
                             @endif
                         @endforeach
                     </ul>

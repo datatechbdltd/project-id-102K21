@@ -177,7 +177,7 @@
                                     <h4>{{ $portfolio->short_title }}</h4>
                                     <p>{{ $portfolioCategory->name }}</p>
                                     <a href="{{ asset($portfolio->images->first()->image ?? get_static_option('no_image')) }}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="{{ $portfolio->name }}"><i class="bx bx-plus"></i></a>
-                                    <a href="{{  url('/portfolio/'.$portfolio->slug) }}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                                    <a href="{{  url('/portfolio', $portfolio->slug) }}" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                                 </div>
                             </div>
                         @endforeach
@@ -236,7 +236,7 @@
                                     {!! $price->description !!}
                                 </li>
                             </ul>
-                            <a href="{{ url('price/',$price->slug) }}" class="buy-btn">Get Started</a>
+                            <a href="{{ url('/price',$price->slug) }}" class="buy-btn">Get Started</a>
                         </div>
                     </div>
                     @endforeach
