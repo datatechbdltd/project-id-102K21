@@ -15,12 +15,12 @@
                         <h3 class="text-center m-b-20">Login</h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input id="email" name="email" value="{{ old('email') }}" class="form-control" type="email" required="" autofocus placeholder="Email">
+                                <input id="email" name="email" @if(env('DEMO_MOOD') == "On") value="admin@gmail.com" @else value="{{ old('email') }}" @endif class="form-control" type="email" required="" autofocus placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input name="password" id="password" class="form-control" type="password" required=""  autocomplete="current-password"  placeholder="Password">
+                                <input name="password" id="password" @if(env('DEMO_MOOD') == "On") value="password" @else value="{{ old('password') }}" @endif class="form-control" type="password" required=""  autocomplete="current-password"  placeholder="Password">
                             </div>
                         </div>
                         @if (Route::has('password.request'))
@@ -35,27 +35,16 @@
                                 </div>
                             </div>
                         @endif
-
                         <div class="form-group text-center">
                             <div class="col-xs-12 p-b-20">
                                 <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Log In</button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                <div class="social">
-                                    <button class="btn  btn-facebook" data-toggle="tooltip" title=""
-                                        data-original-title="Login with Facebook"> <i aria-hidden="true"
-                                            class="fab fa-facebook-f"></i> </button>
-                                    <button class="btn btn-googleplus" data-toggle="tooltip" title=""
-                                        data-original-title="Login with Google"> <i aria-hidden="true"
-                                            class="fab fa-google-plus-g"></i> </button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group m-b-0">
                             <div class="col-sm-12 text-center">
+                                @if(Route::has('register'))
                                 Don't have an account? <a href="{{ route('register') }}" class="text-info m-l-5"><b>Sign Up</b></a>
+                                @endif
                             </div>
                         </div>
                     </form>
