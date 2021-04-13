@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\EmailSenderJob;
 use App\Jobs\SingleEmailSenderJob;
 use App\Models\WebsiteMessage;
 use Illuminate\Http\Request;
@@ -150,8 +151,9 @@ class WebsiteMessageController extends Controller
             'email'=> 'required|email',
             'description'=> 'required|string',
         ]);
+//        dd(explode(',', $request->email));
         //Send  to job
-        dispatch(new SingleEmailSenderJob($request->email, $request->description))->delay(now()->addSeconds(5));
+        dispatch(new EmailSenderJob(explode(',', $request->email), $request->description))->delay(now()->addSeconds(5));
         //Run queue for one time
         Artisan::call('queue:work --once');
         return back()->withToastSuccess('Successfully mail sent to '.$request->email);

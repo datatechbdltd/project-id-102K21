@@ -57,6 +57,9 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::post('/message/update', [WebsiteMessageController::class, 'messageUpdate'])->name('messageUpdate');
         Route::post('/subscriber/update', [SubscriberController::class, 'subscriberUpdate'])->name('subscriberUpdate');
 
+        Route::get('/subscriber/email', [SubscriberController::class, 'subscriberEmail'])->name('subscriberEmail');
+        Route::post('/subscriber/email', [SubscriberController::class, 'subscriberEmailSend'])->name('subscriberEmailSend');
+
         Route::resource('homeContent', HomeContentController::class);
         Route::resource('homeContentFaq', HomeContentFaqController::class);
         Route::resource('strength', StrengthController::class);

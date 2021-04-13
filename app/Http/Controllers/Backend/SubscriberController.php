@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\EmailSenderJob;
+use App\Jobs\SingleEmailSenderJob;
 use Illuminate\Http\Request;
 use App\Models\WebsiteSubscribe;
+use Illuminate\Support\Facades\Artisan;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -120,6 +123,32 @@ class SubscriberController extends Controller
             update_static_option('subscriber_description', $request->description);
 
             return back()->withToastSuccess('Successfully updated.');
+        }catch (\Exception $exception){
+            return back()->withErrors('Something going wrong. '.$exception->getMessage());
+        }
+    }
+
+    public function subscriberEmail(){
+        $subscriber = WebsiteSubscribe::all()->count();
+        return view('backend.website.subscriber.email', compact('subscriber'));
+    }
+
+    public function subscriberEmailSend(Request $request){
+        $request->validate([
+            'subject' => 'required|string',
+            'description' => 'required',
+        ]);
+        $emails = WebsiteSubscribe::all()->pluck('email');
+        //Send  to job
+//        dd($emails);
+        dispatch(new EmailSenderJob($emails, $request->description))->delay(now()->addSeconds(5));
+
+        try {
+
+            //Run queue for one time
+            Artisan::call('queue:work --once');
+
+            return back()->withToastSuccess('Successfully email sent.');
         }catch (\Exception $exception){
             return back()->withErrors('Something going wrong. '.$exception->getMessage());
         }

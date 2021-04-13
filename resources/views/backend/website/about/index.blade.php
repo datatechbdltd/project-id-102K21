@@ -57,26 +57,6 @@
                         </div>
                     </form>
                 </div>
-                <hr class="mb-5 bg-danger">
-                <div class="card-body">
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <div class="form-group">
-                                    <img height="" width="" class="rounded-circle image-display" src="{{ asset(get_static_option('banner_image')) }}" alt="">
-                                    <br>
-                                    <label class="control-label">Website banner image</label>
-                                    <input name="no_image" type="file" accept="image/*"  id="no_image" class="form-control image-importer">
-                                    <br>
-                                    <button type="button" class="btn btn-info btn-circle image-chose-btn"><i class="fa fa-plus"></i> </button>
-                                    <button value="{{ route('backend.bannerImageUpdate') }}" type="button" class="btn btn-info btn-circle image-submit-btn"><i class="fa fa-check"></i> </button>
-                                    <button type="button" class="btn btn-warning btn-circle image-reset-btn"  value="{{ asset(get_static_option('banner_image')) }}"><i class="fa fa-times "></i> </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/row-->
-                    </div>
-                </div>
             </div>
         </div>
         <!-- End row -->

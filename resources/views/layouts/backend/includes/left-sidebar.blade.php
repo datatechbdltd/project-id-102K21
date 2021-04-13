@@ -142,7 +142,16 @@
                         <li><a href="{{ route('backend.customPage.create') }}">Custom page create </a></li>
                     </ul>
                 </li>
+
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="far fa-circle text-success"></i>Subscriber</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.subscriber.index') }}">Subscriber List </a></li>
+                        <li><a href="{{ route('backend.subscriberEmail') }}">Mail to Subscriber </a></li>
+                    </ul>
+                </li>
+
                 <hr class="bg-white">
+
                 <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="far fa-circle text-danger"></i><span class="hide-menu">Setting</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('application.seoStaticOptionForm') }}">Seo </a></li>
