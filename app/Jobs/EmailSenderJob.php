@@ -36,7 +36,11 @@ class EmailSenderJob implements ShouldQueue
     public function handle()
     {
         foreach ($this->emails as $email) {
-            Mail::to($email)->send(new Email($this->description));
+            try {
+                Mail::to($email)->send(new Email($this->description));
+            }catch (\Exception $exception){
+            }
+
         }
     }
 }

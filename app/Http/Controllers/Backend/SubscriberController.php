@@ -140,11 +140,9 @@ class SubscriberController extends Controller
         ]);
         $emails = WebsiteSubscribe::all()->pluck('email');
         //Send  to job
-//        dd($emails);
-        dispatch(new EmailSenderJob($emails, $request->description))->delay(now()->addSeconds(5));
-
+        //dd($emails);
         try {
-
+            dispatch(new EmailSenderJob($emails, $request->description))->delay(now()->addSeconds(5));
             //Run queue for one time
             Artisan::call('queue:work --once');
 
