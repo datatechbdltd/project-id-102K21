@@ -126,11 +126,11 @@
                     </form>
                     <br>
                    <div class="mt-5 row justify-content-center">
-                       <button type="button" id="" class="btn btn-info mx-2">Cache clear</button>
-                       <button type="button" id="" class="btn btn-info mx-2">Route clear</button>
-                       <button type="button" id="" class="btn btn-info mx-2">View clear</button>
-                       <button type="button" id="" class="btn btn-info mx-2">Config clear</button>
-                       <button type="button" id="" class="btn btn-info mx-2">Opt clear</button>
+                       <a href="{{ route('application.clear.cache') }}" type="button" id="" class="btn btn-info mx-2">Cache clear</a>
+                       <a href="{{ route('application.clear.route') }}" type="button" id="" class="btn btn-info mx-2">Route clear</a>
+                       <a href="{{ route('application.clear.config') }}" type="button" id="" class="btn btn-info mx-2">Config clear</a>
+                       <a href="{{ route('application.clear.view') }}" type="button" id="" class="btn btn-info mx-2">View clear</a>
+                       <a href="#" type="button" id="" class="btn btn-info mx-2">Opt clear</a>
                    </div>
                 </div>
             </div>

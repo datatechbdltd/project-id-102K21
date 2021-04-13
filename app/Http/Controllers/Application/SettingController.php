@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Application;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -129,7 +130,7 @@ class SettingController extends Controller
                 'MAIL_FROM_NAME' => '"'.$env_val['MAIL_FROM_NAME'].'"',
                 'MAIL_FROM_ADDRESS' => '"'.$env_val['MAIL_FROM_ADDRESS'].'"'
             ]);
-            return redirect()->route('frontend.index')->withSuccess('Successfully application setting updated!');
+            return redirect()->back()->withSuccess('Successfully application setting updated!');
         }catch (\Exception $exception){
             return redirect()->back()->withErrors('Something going wrong. Error:'.$exception->getMessage());
         }
@@ -419,6 +420,43 @@ class SettingController extends Controller
             'message' => 'Successfully Updated',
             'image_url' => $folder_path.$image_new_name
         ]);
+    }
+
+
+    public function cache_clear(){
+        try {
+            Artisan::call('cache:clear');
+            return back()->withSuccess('Cache clear');
+        }catch (\Exception $exception){
+            return back()->withErrors($exception->getMessage());
+        }
+    }
+
+    public function route_clear(){
+        try {
+            Artisan::call('route:clear');
+            return back()->withSuccess('Route clear');
+        }catch (\Exception $exception){
+            return back()->withErrors($exception->getMessage());
+        }
+    }
+
+    public function config_clear(){
+        try {
+            Artisan::call('config:clear');
+            return back()->withSuccess('Config clear');
+        }catch (\Exception $exception){
+            return back()->withErrors($exception->getMessage());
+        }
+    }
+
+    public function view_clear(){
+        try {
+            Artisan::call('view:clear');
+            return back()->withSuccess('View clear');
+        }catch (\Exception $exception){
+            return back()->withErrors($exception->getMessage());
+        }
     }
 
 }

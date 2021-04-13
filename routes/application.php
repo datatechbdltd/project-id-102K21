@@ -17,6 +17,13 @@ Route::group(['as' => 'application.', 'prefix' => 'application/'], function (){
         Route::post('/breadcrumb-image', [SettingController::class, 'breadcrumbImage'])->name('breadcrumbImage');
     });
 
+    Route::group(['as' => 'clear.', 'prefix' => 'clear/'], function (){
+        Route::get('/cache_clear', [SettingController::class, 'cache_clear'])->name('cache');
+        Route::get('/route_clear', [SettingController::class, 'route_clear'])->name('route');
+        Route::get('/config_clear', [SettingController::class, 'config_clear'])->name('config');
+        Route::get('/view_clear', [SettingController::class, 'view_clear'])->name('view');
+    });
+
     Route::get('/seo-static-option-form', [SettingController::class, 'seoStaticOptionForm'])->name('seoStaticOptionForm');
     Route::get('/app-static-form', [SettingController::class, 'appStaticForm'])->name('appStaticForm');
     Route::get('/logo-and-image-static-option-form', [SettingController::class, 'logoAndImageStaticOptionForm'])->name('logoAndImageStaticOptionForm');
