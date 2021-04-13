@@ -20,11 +20,9 @@
     </section><!-- End Hero -->
 
     <main id="main">
-
         <!-- ======= Cliens Section ======= -->
         <section id="cliens" class="cliens section-bg">
             <div class="container">
-
                 <div class="row" data-aos="zoom-in">
                     @foreach($partners as $partner)
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
@@ -32,27 +30,22 @@
                     </div>
                     @endforeach
                 </div>
-
             </div>
         </section><!-- End Cliens Section -->
 
         <!-- ======= About Us Section ======= -->
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>{{ get_static_option('about_title') }}</h2>
                 </div>
-
                 <div class="row content">
                     {!! get_static_option('about_description') !!}
                 </div>
-
             </div>
         </section><!-- End About Us Section -->
 
         <!-- ======= Why Us Section ======= -->
-
         <section id="why-us" class="why-us">
             <div class="container-fluid" data-aos="fade-up">
                 @foreach($home_contents as $home_content)
@@ -83,7 +76,6 @@
                     </div>
                 </div>
                 @endforeach
-
             </div>
         </section><!-- End Why Us Section -->
 
