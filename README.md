@@ -14,3 +14,6 @@
 Please knock me for any kind of help 
 Whatsapp: +880 1304-734623
 Email: m.sakirahmed@gmail.com
+
+#Demo: https://lara-website.datatechbd.com/
+Admin: https://lara-website.datatechbd.com/login
