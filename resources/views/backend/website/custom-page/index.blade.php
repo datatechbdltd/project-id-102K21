@@ -3,7 +3,7 @@
 @endpush
 @extends('layouts.backend.app')
 @push('style')
-
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 @endpush
 @section('breadcrumb')
     <div class="row page-titles">
