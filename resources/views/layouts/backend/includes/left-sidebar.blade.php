@@ -5,7 +5,7 @@
         @if(Auth::check())
             <div class="user-profile">
                 <div class="user-pro-body">
-                    <div><img src="{{ asset( auth()->user()->avatar ?? get_static_option('no_image') ) }}" alt="" class="img-circle"></div>
+                    <div><img src="{{ asset( auth()->user()->moreInfo->avatar ?? get_static_option('no_image') ) }}" alt="" class="img-circle"></div>
                     <div class="dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle u-dropdown link hide-menu"
                            data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }}<span class="caret"></span></a>
@@ -147,6 +147,13 @@
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{ route('backend.subscriber.index') }}">Subscriber List </a></li>
                         <li><a href="{{ route('backend.subscriberEmail') }}">Mail to Subscriber </a></li>
+                    </ul>
+                </li>
+
+                <li><a href="javascript:void(0)" class="has-arrow"> <i class="far fa-circle text-success"></i>Admin</a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{ route('backend.user.index') }}">Admin list </a></li>
+                        <li><a href="{{ route('backend.user.create') }}">Admin create </a></li>
                     </ul>
                 </li>
 

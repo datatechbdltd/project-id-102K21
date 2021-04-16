@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\PriceController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\StrengthController;
 use App\Http\Controllers\Backend\TeamController;
+use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CustomPageController;
@@ -77,6 +78,7 @@ Route::group(['as' => 'backend.', 'prefix' => 'backend/'], function (){
         Route::resource('customPage', CustomPageController::class);
         Route::resource('subscriber', SubscriberController::class);
         Route::resource('websiteMessage', WebsiteMessageController::class);
+        Route::resource('user', UserController::class);
 
         Route::post('/message-status-change', [WebsiteMessageController::class, 'messageStatusChange'])->name('messageStatusChange');
         Route::post('/message-reply-mail', [WebsiteMessageController::class, 'websiteMessageReplyMail'])->name('websiteMessageReplyMail');
