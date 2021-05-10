@@ -4,7 +4,7 @@
         <!-- Logo -->
         <!-- ============================================================== -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ route('backend.dashboard') }}">
+            <a class="navbar-brand text-center" href="{{ route('backend.dashboard') }}">
                 <!-- Logo text -->
                 <span>
                     <!-- dark Logo text -->
