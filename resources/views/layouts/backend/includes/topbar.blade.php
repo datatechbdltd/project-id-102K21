@@ -3,7 +3,7 @@
         <!-- ============================================================== -->
         <!-- Logo -->
         <!-- ============================================================== -->
-        <div class="navbar-header">
+        <div class="navbar-header text-center">
             <a class="navbar-brand text-center" href="{{ route('backend.dashboard') }}">
                 <!-- Logo text -->
                 <span>
