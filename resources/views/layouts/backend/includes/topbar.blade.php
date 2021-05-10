@@ -4,15 +4,18 @@
         <!-- Logo -->
         <!-- ============================================================== -->
         <div class="navbar-header">
-            <a class="navbar-brand text-center" href="{{ route('backend.dashboard') }}">
+            <a class="navbar-brand" href="{{ route('backend.dashboard') }}">
                 <!-- Logo icon -->
                 <b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                    <!-- Dark Logo icon -->
-                    <img src="{{ asset(get_static_option('backend_logo') ?? get_static_option('no_image')) }}" style="max-width: 80px;" alt="" class="dark-logo" />
-                    <!-- Light Logo icon -->
+                    <i class="wi wi-sunset"></i>
                 </b>
                 <!--End Logo icon -->
+                <!-- Logo text -->
+                <span>
+                    <!-- dark Logo text -->
+                    <img src="{{ asset(get_static_option('backend_text_logo') ?? get_static_option('no_image')) }}" style="max-width: 80px;" alt="" class="dark-logo" />
+                </span>
             </a>
         </div>
         <!-- ============================================================== -->
